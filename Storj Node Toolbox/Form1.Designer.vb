@@ -100,6 +100,7 @@ Partial Class Form1
         Me.CheckBox2.TabIndex = 36
         Me.CheckBox2.Text = "Log Monitoring(for this pc only)"
         Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.CheckBox2.Visible = False
         '
         'Label4
         '
