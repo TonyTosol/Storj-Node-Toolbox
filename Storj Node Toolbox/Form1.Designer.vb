@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -41,6 +41,9 @@ Partial Class Form1
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ArhiveBtn = New System.Windows.Forms.Button()
+        Me.StopNodeBtn = New System.Windows.Forms.Button()
+        Me.StartNodeBtn = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.SleepTimeBox = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -49,6 +52,9 @@ Partial Class Form1
         Me.MainNodeCheck = New System.Windows.Forms.CheckBox()
         Me.NodeList = New System.Windows.Forms.DataGridView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.NodeNameG = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodeIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodePort = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,10 +62,7 @@ Partial Class Form1
         Me.ServiceName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MainNodeCol = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodeStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.StartNodeBtn = New System.Windows.Forms.Button()
-        Me.StopNodeBtn = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.ArhiveBtn = New System.Windows.Forms.Button()
+        Me.NodeVersion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,6 +235,8 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label8)
+        Me.GroupBox2.Controls.Add(Me.Button5)
         Me.GroupBox2.Controls.Add(Me.ArhiveBtn)
         Me.GroupBox2.Controls.Add(Me.StopNodeBtn)
         Me.GroupBox2.Controls.Add(Me.StartNodeBtn)
@@ -245,6 +250,33 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 41
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Tools"
+        '
+        'ArhiveBtn
+        '
+        Me.ArhiveBtn.Location = New System.Drawing.Point(22, 161)
+        Me.ArhiveBtn.Name = "ArhiveBtn"
+        Me.ArhiveBtn.Size = New System.Drawing.Size(107, 27)
+        Me.ArhiveBtn.TabIndex = 50
+        Me.ArhiveBtn.Text = "Arhive Logs"
+        Me.ArhiveBtn.UseVisualStyleBackColor = True
+        '
+        'StopNodeBtn
+        '
+        Me.StopNodeBtn.Location = New System.Drawing.Point(144, 117)
+        Me.StopNodeBtn.Name = "StopNodeBtn"
+        Me.StopNodeBtn.Size = New System.Drawing.Size(107, 27)
+        Me.StopNodeBtn.TabIndex = 49
+        Me.StopNodeBtn.Text = "Stop Node"
+        Me.StopNodeBtn.UseVisualStyleBackColor = True
+        '
+        'StartNodeBtn
+        '
+        Me.StartNodeBtn.Location = New System.Drawing.Point(22, 117)
+        Me.StartNodeBtn.Name = "StartNodeBtn"
+        Me.StartNodeBtn.Size = New System.Drawing.Size(107, 27)
+        Me.StartNodeBtn.TabIndex = 48
+        Me.StartNodeBtn.Text = "Start Node"
+        Me.StartNodeBtn.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -302,7 +334,7 @@ Partial Class Form1
         'NodeList
         '
         Me.NodeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.NodeList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NodeNameG, Me.NodeIP, Me.NodePort, Me.NodePath, Me.ServiceName, Me.MainNodeCol, Me.NodeStatus})
+        Me.NodeList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NodeNameG, Me.NodeIP, Me.NodePort, Me.NodePath, Me.ServiceName, Me.MainNodeCol, Me.NodeStatus, Me.NodeVersion})
         Me.NodeList.Location = New System.Drawing.Point(10, 12)
         Me.NodeList.Name = "NodeList"
         Me.NodeList.RowHeadersWidth = 51
@@ -330,6 +362,31 @@ Partial Class Form1
         Me.GroupBox3.TabIndex = 46
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Node List Managment"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(1, 675)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(1358, 226)
+        Me.TextBox1.TabIndex = 47
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(22, 205)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(107, 27)
+        Me.Button5.TabIndex = 51
+        Me.Button5.Text = "Update Nodes"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Label8
+        '
+        Me.Label8.Location = New System.Drawing.Point(137, 196)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(134, 36)
+        Me.Label8.TabIndex = 52
+        Me.Label8.Text = "Updates, other nodes from main"
         '
         'NodeNameG
         '
@@ -386,40 +443,13 @@ Partial Class Form1
         Me.NodeStatus.ReadOnly = True
         Me.NodeStatus.Width = 125
         '
-        'StartNodeBtn
+        'NodeVersion
         '
-        Me.StartNodeBtn.Location = New System.Drawing.Point(22, 117)
-        Me.StartNodeBtn.Name = "StartNodeBtn"
-        Me.StartNodeBtn.Size = New System.Drawing.Size(107, 27)
-        Me.StartNodeBtn.TabIndex = 48
-        Me.StartNodeBtn.Text = "Start Node"
-        Me.StartNodeBtn.UseVisualStyleBackColor = True
-        '
-        'StopNodeBtn
-        '
-        Me.StopNodeBtn.Location = New System.Drawing.Point(144, 117)
-        Me.StopNodeBtn.Name = "StopNodeBtn"
-        Me.StopNodeBtn.Size = New System.Drawing.Size(107, 27)
-        Me.StopNodeBtn.TabIndex = 49
-        Me.StopNodeBtn.Text = "Stop Node"
-        Me.StopNodeBtn.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(1, 675)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(1358, 226)
-        Me.TextBox1.TabIndex = 47
-        '
-        'ArhiveBtn
-        '
-        Me.ArhiveBtn.Location = New System.Drawing.Point(22, 161)
-        Me.ArhiveBtn.Name = "ArhiveBtn"
-        Me.ArhiveBtn.Size = New System.Drawing.Size(107, 27)
-        Me.ArhiveBtn.TabIndex = 50
-        Me.ArhiveBtn.Text = "Arhive Logs"
-        Me.ArhiveBtn.UseVisualStyleBackColor = True
+        Me.NodeVersion.HeaderText = "Node Version"
+        Me.NodeVersion.MinimumWidth = 6
+        Me.NodeVersion.Name = "NodeVersion"
+        Me.NodeVersion.ReadOnly = True
+        Me.NodeVersion.Width = 125
         '
         'Form1
         '
@@ -473,6 +503,12 @@ Partial Class Form1
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label7 As Label
     Friend WithEvents SleepTimeBox As TextBox
+    Friend WithEvents StopNodeBtn As Button
+    Friend WithEvents StartNodeBtn As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents ArhiveBtn As Button
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Button5 As Button
     Friend WithEvents NodeNameG As DataGridViewTextBoxColumn
     Friend WithEvents NodeIP As DataGridViewTextBoxColumn
     Friend WithEvents NodePort As DataGridViewTextBoxColumn
@@ -480,8 +516,5 @@ Partial Class Form1
     Friend WithEvents ServiceName As DataGridViewTextBoxColumn
     Friend WithEvents MainNodeCol As DataGridViewTextBoxColumn
     Friend WithEvents NodeStatus As DataGridViewTextBoxColumn
-    Friend WithEvents StopNodeBtn As Button
-    Friend WithEvents StartNodeBtn As Button
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents ArhiveBtn As Button
+    Friend WithEvents NodeVersion As DataGridViewTextBoxColumn
 End Class

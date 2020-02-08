@@ -6,6 +6,8 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports TaskScheduler.TaskScheduler
 Imports System.IO.Compression
+Imports System.Reflection
+
 Public Class Form1
     Private Sender As New HttpSender("http://95.216.196.150:5000/monitoring/") ''\/("http://95.216.196.150:5000/monitoring/")/\
     Private RaportSender As New HttpSender("http://95.216.196.150:6000/raport/")
@@ -45,7 +47,13 @@ Public Class Form1
 
             If NodeData.Nodes IsNot Nothing Then
                 For Each node As NodeProp In NodeData.Nodes
-                    Dim row As Integer = NodeList.Rows.Add(node.Name, node.IP, node.Port, node.Path, node.ServiceName, node.MainNode, node.ServiceStatus)
+
+                    Dim nodepath As String = ""
+                    If node.Path.Length > 4 Then nodepath = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
+
+
+
+                    Dim row As Integer = NodeList.Rows.Add(node.Name, node.IP, node.Port, node.Path, node.ServiceName, node.MainNode, node.ServiceStatus, GetVersion(nodepath))
                     If node.ServiceStatus Then
 
                         NodeList.Rows(row).Cells(6).Style.BackColor = Color.GreenYellow
@@ -56,6 +64,16 @@ Public Class Form1
             End If
         End If
     End Sub
+    Public Function GetVersion(ByVal fileName As String) As String
+        Dim info As System.Diagnostics.FileVersionInfo
+        If File.Exists(fileName) Then
+            info = System.Diagnostics.FileVersionInfo.GetVersionInfo(fileName)
+            Return info.ProductMajorPart & "." & info.ProductMinorPart & "." & info.ProductBuildPart
+        Else
+            Return ""
+        End If
+    End Function
+
     Public Function IsServiceRuning(ByVal serviceName As String) As Boolean
         Dim services As ServiceController() = ServiceController.GetServices()
 
@@ -405,7 +423,7 @@ Public Class Form1
             a.IsBackground = True
             a.Start()
         Catch ex As Exception
-            MsgBox("Error During System Start")
+            MsgBox("Error During System Start   " & ex.Message)
         End Try
     End Sub
     Private Sub SetShadowScheduler()
@@ -569,6 +587,7 @@ Public Class Form1
         Try
 
             If NodeData Is Nothing Then NodeData = New NodeStruct
+
             If NodeData.Nodes IsNot Nothing Then
                 For Each data As NodeProp In NodeData.Nodes
                     If data.IP = IPBox.Text And PortBox.Text = data.Port Then
@@ -586,21 +605,13 @@ Public Class Form1
                     ElseIf MainNodeCheck.Checked = True And data.MainNode Then
                         MsgBox("Main Node can be only One and shold be first node instaled on PC with name storagenode")
                         Exit Sub
-                    Else
-                        Dim newnode As New NodeProp With {.IP = IPBox.Text,
-                                                            .Port = PortBox.Text,
-                                                            .Name = NodeName.Text,
-                                                            .Path = LogPathBox.Text,
-                                                            .ServiceName = ServiceText.Text,
-                                                            .MainNode = MainNodeCheck.Checked}
-                        NodeData.Nodes.AddItemToArray(newnode)
-                        My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
-                        My.Settings.Save()
+
                     End If
                 Next
-            Else
-                NodeData = New NodeStruct
-                Dim newnode As New NodeProp With {.IP = IPBox.Text,
+
+            End If
+
+            Dim newnode As New NodeProp With {.IP = IPBox.Text,
                                                            .Port = PortBox.Text,
                                                            .Name = NodeName.Text,
                                                            .Path = LogPathBox.Text,
@@ -609,8 +620,8 @@ Public Class Form1
                 NodeData.Nodes.AddItemToArray(newnode)
                 My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
                 My.Settings.Save()
-            End If
-            NodeList.Rows.Clear()
+
+                NodeList.Rows.Clear()
 
             GetServiceStatus()
         Catch ex As Exception
@@ -741,7 +752,8 @@ Public Class Form1
                 ''ZipFile.CreateFromDirectory(NodeList.Rows(RowSelected).Cells(3).Value, (NodeList.Rows(RowSelected).Cells(3).Value).ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".zip", CompressionLevel.Optimal, False)
                 My.Computer.FileSystem.RenameFile(NodeList.Rows(RowSelected).Cells(3).Value, "storagenode" & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".log")
                 sc.Start()
-                MsgBox(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".zip")
+                MsgBox("Log argiving complete.")
+                ''MsgBox(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".log")
             Catch ex As Exception
                 MsgBox("Check you run software as Administrator or you added log path " & ex.Message)
             End Try
@@ -749,4 +761,49 @@ Public Class Form1
             MsgBox("Select Node to Arhive Logs")
         End If
     End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        If RowSelected >= 0 Then
+            Try
+
+                Dim mainnode As String = ""
+                For Each node In NodeData.Nodes
+                    If node.MainNode And File.Exists(node.Path) Then
+                        mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
+                        Exit For
+                    End If
+                Next
+                If File.Exists(mainnode) Then
+                    Try
+                        If GetVersion(mainnode) <> GetVersion(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & ".exe") Then
+                            '' MsgBox(GetVersion(mainnode) & " - " & GetVersion(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & ".exe"))
+                            Dim sc As ServiceController = New ServiceController(NodeList.Rows(RowSelected).Cells(4).Value)
+                            sc.Stop()
+                            Threading.Thread.Sleep(5000)
+                            My.Computer.FileSystem.RenameFile(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & ".exe", "storagenode" & GetVersion(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & ".exe").Replace(".", "-") & ".exe")
+                            My.Computer.FileSystem.CopyFile(mainnode, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & ".exe")
+                            Threading.Thread.Sleep(1000)
+                            sc.Start()
+                            MsgBox("Update Complete")
+                        Else
+                            MsgBox("File is Up to date")
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Check you run software as Administrator or you added log path " & ex.Message)
+                    End Try
+
+                End If
+                ''My.Computer.FileSystem.RenameFile(NodeList.Rows(RowSelected).Cells(3).Value, "storagenode" & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".log")
+
+
+                ''MsgBox(NodeList.Rows(RowSelected).Cells(3).Value.ToString.Substring(0, NodeList.Rows(RowSelected).Cells(3).Value.ToString.Length - 4) & DateTime.Now.Day & "-" & DateTime.Now.Month & "-" & DateTime.Now.Year & ".log")
+            Catch ex As Exception
+
+            End Try
+        Else
+            MsgBox("Select Node to Update")
+        End If
+    End Sub
+
+
 End Class
