@@ -63,6 +63,7 @@ Public Class Form1
 
 
                     Dim row As Integer = NodeList.Rows.Add(node.Name, node.IP, node.Port, node.Path, node.ServiceName, node.MainNode, node.ServiceStatus, GetVersion(nodepath))
+
                     If node.ServiceStatus Then
 
                         NodeList.Rows(row).Cells(6).Style.BackColor = Color.GreenYellow
@@ -912,4 +913,10 @@ Public Class Form1
 
         Return ""
     End Function
+
+    Private Sub NodeList_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles NodeList.CellContentClick
+        If e.ColumnIndex = 0 Then
+            Process.Start("Http://" & NodeList.Rows(e.RowIndex).Cells(1).Value & ":" & NodeList.Rows(e.RowIndex).Cells(2).Value)
+        End If
+    End Sub
 End Class

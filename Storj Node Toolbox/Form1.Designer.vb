@@ -54,7 +54,7 @@ Partial Class Form1
         Me.ServiceText = New System.Windows.Forms.TextBox()
         Me.MainNodeCheck = New System.Windows.Forms.CheckBox()
         Me.NodeList = New System.Windows.Forms.DataGridView()
-        Me.NodeNameG = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NodeLinkName = New System.Windows.Forms.DataGridViewLinkColumn()
         Me.NodeIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodePort = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodePath = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -66,8 +66,8 @@ Partial Class Form1
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.DP = New System.Windows.Forms.DateTimePicker()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -400,7 +400,7 @@ Partial Class Form1
         'NodeList
         '
         Me.NodeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.NodeList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NodeNameG, Me.NodeIP, Me.NodePort, Me.NodePath, Me.ServiceName, Me.MainNodeCol, Me.NodeStatus, Me.NodeVersion})
+        Me.NodeList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.NodeLinkName, Me.NodeIP, Me.NodePort, Me.NodePath, Me.ServiceName, Me.MainNodeCol, Me.NodeStatus, Me.NodeVersion})
         Me.NodeList.Location = New System.Drawing.Point(8, 10)
         Me.NodeList.Margin = New System.Windows.Forms.Padding(2)
         Me.NodeList.Name = "NodeList"
@@ -409,12 +409,10 @@ Partial Class Form1
         Me.NodeList.Size = New System.Drawing.Size(801, 358)
         Me.NodeList.TabIndex = 45
         '
-        'NodeNameG
+        'NodeLinkName
         '
-        Me.NodeNameG.HeaderText = "Node Name"
-        Me.NodeNameG.MinimumWidth = 6
-        Me.NodeNameG.Name = "NodeNameG"
-        Me.NodeNameG.Width = 125
+        Me.NodeLinkName.HeaderText = "Node Name"
+        Me.NodeLinkName.Name = "NodeLinkName"
         '
         'NodeIP
         '
@@ -526,16 +524,6 @@ Partial Class Form1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Earnings Calculator"
         '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(13, 23)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(174, 13)
-        Me.LinkLabel1.TabIndex = 1
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Calcutator made by Rene Smeekes"
-        '
         'DP
         '
         Me.DP.CustomFormat = "MMMMyyyy"
@@ -545,6 +533,16 @@ Partial Class Form1
         Me.DP.Name = "DP"
         Me.DP.Size = New System.Drawing.Size(169, 20)
         Me.DP.TabIndex = 55
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(13, 23)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(174, 13)
+        Me.LinkLabel1.TabIndex = 1
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Calcutator made by Rene Smeekes"
         '
         'Form1
         '
@@ -608,7 +606,12 @@ Partial Class Form1
     Friend WithEvents ArhiveBtn As Button
     Friend WithEvents Label8 As Label
     Friend WithEvents Button5 As Button
-    Friend WithEvents NodeNameG As DataGridViewTextBoxColumn
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents DP As DateTimePicker
+    Friend WithEvents NodeLinkName As DataGridViewLinkColumn
     Friend WithEvents NodeIP As DataGridViewTextBoxColumn
     Friend WithEvents NodePort As DataGridViewTextBoxColumn
     Friend WithEvents NodePath As DataGridViewTextBoxColumn
@@ -616,9 +619,4 @@ Partial Class Form1
     Friend WithEvents MainNodeCol As DataGridViewTextBoxColumn
     Friend WithEvents NodeStatus As DataGridViewTextBoxColumn
     Friend WithEvents NodeVersion As DataGridViewTextBoxColumn
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button7 As Button
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents LinkLabel1 As LinkLabel
-    Friend WithEvents DP As DateTimePicker
 End Class
