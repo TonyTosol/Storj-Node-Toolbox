@@ -41,10 +41,11 @@ Partial Class AuditForm
         Me.NodeView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Node, Me.Satellite, Me.Audits, Me.TotalAudits, Me.Egress, Me.Ingress, Me.RepeirEgress, Me.TotalBandwidth, Me.StorageUsed})
         Me.NodeView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.NodeView.Location = New System.Drawing.Point(0, 0)
+        Me.NodeView.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.NodeView.Name = "NodeView"
         Me.NodeView.RowHeadersWidth = 51
         Me.NodeView.RowTemplate.Height = 24
-        Me.NodeView.Size = New System.Drawing.Size(1383, 768)
+        Me.NodeView.Size = New System.Drawing.Size(1037, 624)
         Me.NodeView.TabIndex = 11
         '
         'Node
@@ -97,7 +98,7 @@ Partial Class AuditForm
         '
         'RepeirEgress
         '
-        Me.RepeirEgress.HeaderText = "Repeir Egress"
+        Me.RepeirEgress.HeaderText = "Repair Egress"
         Me.RepeirEgress.MinimumWidth = 6
         Me.RepeirEgress.Name = "RepeirEgress"
         Me.RepeirEgress.ReadOnly = True
@@ -121,10 +122,11 @@ Partial Class AuditForm
         '
         'AuditForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1383, 768)
+        Me.ClientSize = New System.Drawing.Size(1037, 624)
         Me.Controls.Add(Me.NodeView)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "AuditForm"
         Me.Text = "AuditForm"
         CType(Me.NodeView, System.ComponentModel.ISupportInitialize).EndInit()

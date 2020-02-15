@@ -22,12 +22,20 @@ Public Class Form1
     Private NodeData As NodeStruct
     Private RowSelected As Integer = -1
     Private WithEvents LF As LogAnalize
+    Private WithEvents AL As AdvLogs
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         GetData()
     End Sub
     Private Sub Timedcheck()
         Threading.Thread.Sleep(10000)
-        GetServiceStatus()
+        Try
+
+
+            GetServiceStatus()
+        Catch ex As Exception
+
+        End Try
         Dim a As Threading.Thread = New Threading.Thread(AddressOf Timedcheck)
         a.IsBackground = True
         a.Start()
@@ -37,6 +45,7 @@ Public Class Form1
         If Me.InvokeRequired Then
             Me.Invoke(New MethodInvoker(AddressOf GetServiceStatus))
         Else
+            If NodeData Is Nothing Then NodeData = New NodeStruct
             If NodeData.Nodes IsNot Nothing Then
                 For Each serv As NodeProp In NodeData.Nodes
                     serv.ServiceStatus = IsServiceRuning(serv.ServiceName)
@@ -337,19 +346,24 @@ Public Class Form1
                         Dim Uptime = ((JObject.Parse(rawresp)("data")("uptime")("successCount"))).ToString
                         Dim TotalUptime = ((JObject.Parse(rawresp)("data")("uptime")("totalCount"))).ToString
 
+                        Try
 
 
-                        For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
-                            Dim egressObject = values("egress")("usage")
-                            Dim ingressObject = values("ingress")("usage")
-                            Dim repairDownObject = values("ingress")("repair")
-                            Dim repairUpObject = values("egress")("repair")
-                            egressCount = egressCount + CLng(egressObject)
-                            ingressCount = ingressCount + CLng(ingressObject)
-                            repairDownCount = repairDownCount + CLng(repairDownObject)
-                            repairUpCount = repairUpCount + CLng(repairUpObject)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
+                                Dim egressObject = values("egress")("usage")
+                                Dim ingressObject = values("ingress")("usage")
+                                Dim repairDownObject = values("ingress")("repair")
+                                Dim repairUpObject = values("egress")("repair")
+                                egressCount = egressCount + CLng(egressObject)
+                                ingressCount = ingressCount + CLng(ingressObject)
+                                repairDownCount = repairDownCount + CLng(repairDownObject)
+                                repairUpCount = repairUpCount + CLng(repairUpObject)
 
-                        Next
+                            Next
+
+                        Catch ex As Exception
+
+                        End Try
                         Try
 
 
@@ -379,15 +393,15 @@ Public Class Form1
                     TotalrepairDownCount = TotalrepairDownCount + NoderepairDownCount
                     TotalrepairUpCount = TotalrepairUpCount + NoderepairUpCount
                     TotalstorageDaily = TotalstorageDaily + storageDaily
-                    AF.NodeView.Rows.Add({"Node Total", "", "", Math.Round(NodeegressCount / 1000000000, 2), Math.Round(NodeingressCount / 1000000000, 2), Math.Round(NoderepairUpCount / 1000000000, 2), Math.Round((NodeegressCount + NodeingressCount + NoderepairUpCount + NoderepairDownCount) / 1000000000, 2), Math.Round(storageDaily / 720000000000000, 3)})
+                    AF.NodeView.Rows.Add({"Node Total", "", "", "", Math.Round(NodeegressCount / 1000000000, 2), Math.Round(NodeingressCount / 1000000000, 2), Math.Round(NoderepairUpCount / 1000000000, 2), Math.Round((NodeegressCount + NodeingressCount + NoderepairUpCount + NoderepairDownCount) / 1000000000, 2), Math.Round(storageDaily / 720000000000000, 3)})
 
                 Catch ex As Exception
-                    AF.NodeView.Rows(AF.NodeView.Rows.Add({NodeAndName.IP & ":" & NodeAndName.Port, "Node not responding", "", "", "", ""})).DefaultCellStyle.BackColor = Color.Red
+                    AF.NodeView.Rows(AF.NodeView.Rows.Add({NodeAndName.IP & ":" & NodeAndName.Port, "Node not responding", "", "", "", "", ""})).DefaultCellStyle.BackColor = Color.Red
 
                 End Try
 
             Next
-            AF.NodeView.Rows.Add({"All Total", "", "", Math.Round(TotalegressCount / 1000000000, 2), Math.Round(TotalingressCount / 1000000000, 2), Math.Round(TotalrepairUpCount / 1000000000, 2), Math.Round((TotalegressCount + TotalingressCount + TotalrepairDownCount + TotalrepairUpCount) / 1000000000, 2), Math.Round(TotalstorageDaily / 720000000000000, 3)})
+            AF.NodeView.Rows.Add({"All Total", "", "", "", Math.Round(TotalegressCount / 1000000000, 2), Math.Round(TotalingressCount / 1000000000, 2), Math.Round(TotalrepairUpCount / 1000000000, 2), Math.Round((TotalegressCount + TotalingressCount + TotalrepairDownCount + TotalrepairUpCount) / 1000000000, 2), Math.Round(TotalstorageDaily / 720000000000000, 3)})
         Catch ex As Exception
             AF.NodeView.Rows(AF.NodeView.Rows.Add({"Some big error", "Node not responding", "", "", "", ""})).DefaultCellStyle.BackColor = Color.Red
         End Try
@@ -518,19 +532,24 @@ Public Class Form1
                         Dim Uptime = ((JObject.Parse(rawresp)("data")("uptime")("successCount"))).ToString
                         Dim TotalUptime = ((JObject.Parse(rawresp)("data")("uptime")("totalCount"))).ToString
 
+                        Try
 
 
-                        For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
-                            Dim egressObject = values("egress")("usage")
-                            Dim ingressObject = values("ingress")("usage")
-                            Dim repairDownObject = values("ingress")("repair")
-                            Dim repairUpObject = values("egress")("repair")
-                            egressCount = egressCount + CLng(egressObject)
-                            ingressCount = ingressCount + CLng(ingressObject)
-                            repairDownCount = repairDownCount + CLng(repairDownObject)
-                            repairUpCount = repairUpCount + CLng(repairUpObject)
 
-                        Next
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
+                                Dim egressObject = values("egress")("usage")
+                                Dim ingressObject = values("ingress")("usage")
+                                Dim repairDownObject = values("ingress")("repair")
+                                Dim repairUpObject = values("egress")("repair")
+                                egressCount = egressCount + CLng(egressObject)
+                                ingressCount = ingressCount + CLng(ingressObject)
+                                repairDownCount = repairDownCount + CLng(repairDownObject)
+                                repairUpCount = repairUpCount + CLng(repairUpObject)
+
+                            Next
+                        Catch ex As Exception
+
+                        End Try
                         Try
 
 
@@ -594,13 +613,13 @@ Public Class Form1
                         MsgBox("Node Exists in the list")
                         Exit Sub
                     ElseIf data.Name = NodeName.Text Then
-                        MsgBox("Name Exists in the list")
+                        MsgBox("Name already exists")
                         Exit Sub
                     ElseIf data.Path = LogPathBox.Text And LogPathBox.Text <> "" Then
-                        MsgBox("Log path Exists in the list")
+                        MsgBox("Log path exists")
                         Exit Sub
                     ElseIf data.ServiceName = ServiceText.Text Then
-                        MsgBox("Service Name Exists in the list")
+                        MsgBox("Service already exists")
                         Exit Sub
                     ElseIf MainNodeCheck.Checked = True And data.MainNode Then
                         MsgBox("Main Node can be only One and shold be first node instaled on PC with name storagenode")
@@ -647,7 +666,7 @@ Public Class Form1
             End If
             My.Settings.Save()
         Catch ex As Exception
-            MsgBox("Error Ocured during save data, something is wrong")
+            MsgBox("Nothing to delete")
         End Try
         NodeList.Rows.Clear()
 
@@ -711,7 +730,7 @@ Public Class Form1
                 MsgBox("Log file not exist, in node path you entered")
             End If
         Else
-            MsgBox("Select Node to Analize Logs")
+            MsgBox("No node selected")
 
         End If
 
@@ -723,10 +742,10 @@ Public Class Form1
                 Dim sc As ServiceController = New ServiceController(NodeList.Rows(RowSelected).Cells(4).Value)
                 sc.Start()
             Catch ex As Exception
-                MsgBox("Check you run software as Administrator " & ex.Message)
+                MsgBox("Try running as Administrator and check if log path is set.  " & ex.Message)
             End Try
         Else
-            MsgBox("Select Node to Start")
+            MsgBox("No node selected")
         End If
     End Sub
 
@@ -739,7 +758,7 @@ Public Class Form1
                 MsgBox("Check you run software as Administrator " & ex.Message)
             End Try
         Else
-            MsgBox("Select Node to Stop")
+            MsgBox("No node selected")
         End If
     End Sub
 
@@ -758,7 +777,7 @@ Public Class Form1
                 MsgBox("Check you run software as Administrator or you added log path " & ex.Message)
             End Try
         Else
-            MsgBox("Select Node to Arhive Logs")
+            MsgBox("No node selected")
         End If
     End Sub
 
@@ -801,9 +820,96 @@ Public Class Form1
 
             End Try
         Else
-            MsgBox("Select Node to Update")
+            MsgBox("No node selected")
         End If
     End Sub
 
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        If RowSelected >= 0 Then
+            If File.Exists(NodeList.Rows(RowSelected).Cells(3).Value) Then
+                AL = New AdvLogs
+                AL.SleepTime = CInt(SleepTimeBox.Text)
+                AL.StartRead(NodeList.Rows(RowSelected).Cells(3).Value)
+                AL.Show()
+            Else
+                MsgBox("Log file not exist, in node path you entered")
+            End If
+        Else
+            MsgBox("No node selected")
 
+        End If
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        Dim SelDate As DateTime = DP.Value
+        If RowSelected >= 0 Then
+            Try
+                Dim path As String = GetStoragePath(NodeList.Rows(RowSelected).Cells(3).Value)
+                If path.Length > 0 Then
+
+
+
+                    Dim sc As ServiceController = New ServiceController(NodeList.Rows(RowSelected).Cells(4).Value)
+                    sc.Stop()
+                    Threading.Thread.Sleep(5000)
+
+                    My.Computer.FileSystem.CopyFile(path & "bandwidth.db", Application.StartupPath & "\db\bandwidth.db", True)
+                    My.Computer.FileSystem.CopyFile(path & "storage_usage.db", Application.StartupPath & "\db\storage_usage.db", True)
+                    My.Computer.FileSystem.CopyFile(path & "piece_spaced_used.db", Application.StartupPath & "\db\piece_spaced_used.db", True)
+                    My.Computer.FileSystem.CopyFile(path & "reputation.db", Application.StartupPath & "\db\reputation.db", True)
+
+                    sc.Start()
+                    RunCommandCom(Application.StartupPath & "\python\python ", Application.StartupPath & "\earnings.py " & Application.StartupPath & "\db " & SelDate.Year & "-" & SelDate.Month, True)
+                End If
+            Catch ex As Exception
+                MsgBox("Check you run software as Administrator or you added log path " & ex.Message)
+            End Try
+        Else
+            MsgBox("No node selected")
+        End If
+
+
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Process.Start("https://github.com/ReneSmeekes/storj_earnings")
+    End Sub
+
+    Private Sub RunCommandCom(command As String, arguments As String, permanent As Boolean)
+        Dim p As Process = New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.Arguments = " " + If(permanent = True, "/K", "/C") + " " + command + " " + arguments
+
+
+        pi.FileName = "cmd.exe"
+        p.StartInfo = pi
+
+        p.Start()
+
+    End Sub
+    Private Function GetStoragePath(path As String) As String
+
+        Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
+            Dim len As Long = 0
+
+            Dim rowlen As Integer = 0
+
+            Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+
+
+                Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+                While Not reader.EndOfStream
+                    Dim line As String = reader.ReadLine
+                If line.Contains("storage.path:") Then
+                    Dim paths = line.Split(" ")
+                    Return paths(1)
+                End If
+
+            End While
+                reader.Close()
+                fs.Close()
+            End Using
+
+        Return ""
+    End Function
 End Class
