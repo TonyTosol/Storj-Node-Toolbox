@@ -68,6 +68,8 @@ Partial Class Form1
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.DP = New System.Windows.Forms.DateTimePicker()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -472,6 +474,8 @@ Partial Class Form1
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Label9)
+        Me.GroupBox3.Controls.Add(Me.Button8)
         Me.GroupBox3.Controls.Add(Me.IPBox)
         Me.GroupBox3.Controls.Add(Me.PortBox)
         Me.GroupBox3.Controls.Add(Me.MainNodeCheck)
@@ -488,7 +492,7 @@ Partial Class Form1
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox3.Size = New System.Drawing.Size(367, 171)
+        Me.GroupBox3.Size = New System.Drawing.Size(338, 171)
         Me.GroupBox3.TabIndex = 46
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Node List Management"
@@ -519,7 +523,7 @@ Partial Class Form1
         Me.GroupBox4.Controls.Add(Me.LinkLabel1)
         Me.GroupBox4.Location = New System.Drawing.Point(813, 374)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(200, 162)
+        Me.GroupBox4.Size = New System.Drawing.Size(206, 162)
         Me.GroupBox4.TabIndex = 48
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Earnings Calculator"
@@ -543,6 +547,26 @@ Partial Class Form1
         Me.LinkLabel1.TabIndex = 1
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Calcutator made by Rene Smeekes"
+        '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(189, 60)
+        Me.Button8.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(141, 22)
+        Me.Button8.TabIndex = 45
+        Me.Button8.Text = "Search Nodes"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(196, 45)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(113, 13)
+        Me.Label9.TabIndex = 46
+        Me.Label9.Text = "Search local pc nodes"
         '
         'Form1
         '
@@ -619,4 +643,6 @@ Partial Class Form1
     Friend WithEvents MainNodeCol As DataGridViewTextBoxColumn
     Friend WithEvents NodeStatus As DataGridViewTextBoxColumn
     Friend WithEvents NodeVersion As DataGridViewTextBoxColumn
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Button8 As Button
 End Class

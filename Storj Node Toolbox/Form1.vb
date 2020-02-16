@@ -7,6 +7,8 @@ Imports Newtonsoft.Json.Linq
 Imports TaskScheduler.TaskScheduler
 Imports System.IO.Compression
 Imports System.Reflection
+Imports System.Management
+Imports Microsoft.Win32
 
 Public Class Form1
     Private Sender As New HttpSender("http://95.216.196.150:5000/monitoring/") ''\/("http://95.216.196.150:5000/monitoring/")/\
@@ -637,11 +639,11 @@ Public Class Form1
                                                            .Path = LogPathBox.Text,
                                                            .ServiceName = ServiceText.Text,
                                                             .MainNode = MainNodeCheck.Checked}
-                NodeData.Nodes.AddItemToArray(newnode)
-                My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
-                My.Settings.Save()
+            NodeData.Nodes.AddItemToArray(newnode)
+            My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
+            My.Settings.Save()
 
-                NodeList.Rows.Clear()
+            NodeList.Rows.Clear()
 
             GetServiceStatus()
         Catch ex As Exception
@@ -891,25 +893,25 @@ Public Class Form1
     Private Function GetStoragePath(path As String) As String
 
         Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
-            Dim len As Long = 0
+        Dim len As Long = 0
 
-            Dim rowlen As Integer = 0
+        Dim rowlen As Integer = 0
 
-            Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+        Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
 
 
-                Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
-                While Not reader.EndOfStream
-                    Dim line As String = reader.ReadLine
+            Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+            While Not reader.EndOfStream
+                Dim line As String = reader.ReadLine
                 If line.Contains("storage.path:") Then
                     Dim paths = line.Split(" ")
                     Return paths(1)
                 End If
 
             End While
-                reader.Close()
-                fs.Close()
-            End Using
+            reader.Close()
+            fs.Close()
+        End Using
 
         Return ""
     End Function
@@ -919,4 +921,123 @@ Public Class Form1
             Process.Start("Http://" & NodeList.Rows(e.RowIndex).Cells(1).Value & ":" & NodeList.Rows(e.RowIndex).Cells(2).Value)
         End If
     End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        SearchService()
+    End Sub
+    Private Sub SearchService()
+        Try
+
+
+            Dim services As ServiceController() = ServiceController.GetServices()
+
+            For Each s As ServiceController In ServiceController.GetServices()
+                Dim path = GetImagePath(s.ServiceName)
+
+                If path.Contains("storagenode.exe") And Not path.Contains("storagenode-updater.exe") Then
+                    Dim Spath = path.Split(Chr(34))
+                    If ServiceExistsInList(s.ServiceName) = False Then
+                        If NodeData Is Nothing Then NodeData = New NodeStruct
+                        Dim mainnode As Boolean = False
+                        If s.ServiceName = "storagenode" Then mainnode = True
+                        Dim nodecount As Integer = 1
+                        If NodeData.Nodes IsNot Nothing Then nodecount = NodeData.Nodes.Count + 1
+                        Dim newnode As New NodeProp With {.IP = getIPFromConf(Spath(1)),
+                                                           .Port = getPortFromConf(Spath(1)),
+                                                           .Name = "Node " & nodecount,
+                                                           .Path = Spath(1).Substring(0, Spath(1).Length - 4) & ".log",
+                                                           .ServiceName = s.ServiceName,
+                                                            .MainNode = mainnode}
+                        NodeData.Nodes.AddItemToArray(newnode)
+                        My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
+                        My.Settings.Save()
+
+
+                    End If
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        NodeList.Rows.Clear()
+
+        GetServiceStatus()
+
+
+    End Sub
+    Private Function getIPFromConf(path As String) As String
+        Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
+        Dim len As Long = 0
+
+        Dim rowlen As Integer = 0
+
+        Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+
+
+            Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+            While Not reader.EndOfStream
+                Dim line As String = reader.ReadLine
+                If line.Contains("console.address:") Then
+                    Dim paths = line.Split(":")
+
+                    Return paths(1).TrimStart(" ")
+                End If
+
+            End While
+            reader.Close()
+            fs.Close()
+        End Using
+
+        Return ""
+    End Function
+    Private Function getPortFromConf(path As String) As String
+        Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
+        Dim len As Long = 0
+
+        Dim rowlen As Integer = 0
+
+        Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+
+
+            Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+            While Not reader.EndOfStream
+                Dim line As String = reader.ReadLine
+                If line.Contains("console.address:") Then
+                    Dim paths = line.Split(":")
+                    Return paths(2)
+                End If
+
+            End While
+            reader.Close()
+            fs.Close()
+        End Using
+
+        Return ""
+    End Function
+    Private Function GetImagePath(ServiceName As String) As String
+        Dim registryPath As String = "SYSTEM\CurrentControlSet\Services\" & ServiceName
+        Dim keyHKLM As RegistryKey = Registry.LocalMachine
+        Dim key As RegistryKey
+
+        If Environment.MachineName <> "" Then
+            key = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, Environment.MachineName).OpenSubKey(registryPath)
+        Else
+            key = keyHKLM.OpenSubKey(registryPath)
+        End If
+
+        Dim value As String = key.GetValue("ImagePath").ToString()
+        key.Close()
+        Return value
+    End Function
+    Private Function ServiceExistsInList(name As String) As Boolean
+        Dim exist As Boolean = False
+        If NodeData IsNot Nothing Then
+            If NodeData.Nodes IsNot Nothing Then
+                For Each node As NodeProp In NodeData.Nodes
+                    If node.ServiceName = name Then exist = True
+                Next
+            End If
+        End If
+        Return exist
+    End Function
 End Class
