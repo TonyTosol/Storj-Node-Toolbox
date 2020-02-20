@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.LogPathBox = New System.Windows.Forms.TextBox()
@@ -63,18 +64,40 @@ Partial Class Form1
         Me.NodeStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NodeVersion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Button8 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.DP = New System.Windows.Forms.DateTimePicker()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.BanBox = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.StorBox = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.DataBox = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.InstallNodeBtn = New System.Windows.Forms.Button()
+        Me.DashIpBox = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.ExIpBox = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.IDpathBox = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.WallBox = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.EmailBox = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button3
@@ -492,19 +515,30 @@ Partial Class Form1
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox3.Size = New System.Drawing.Size(338, 171)
+        Me.GroupBox3.Size = New System.Drawing.Size(338, 183)
         Me.GroupBox3.TabIndex = 46
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Node List Management"
         '
-        'TextBox1
+        'Label9
         '
-        Me.TextBox1.Location = New System.Drawing.Point(1, 548)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(1020, 184)
-        Me.TextBox1.TabIndex = 47
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(196, 45)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(113, 13)
+        Me.Label9.TabIndex = 46
+        Me.Label9.Text = "Search local pc nodes"
+        '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(189, 60)
+        Me.Button8.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(141, 22)
+        Me.Button8.TabIndex = 45
+        Me.Button8.Text = "Search Nodes"
+        Me.Button8.UseVisualStyleBackColor = True
         '
         'Button7
         '
@@ -523,7 +557,7 @@ Partial Class Form1
         Me.GroupBox4.Controls.Add(Me.LinkLabel1)
         Me.GroupBox4.Location = New System.Drawing.Point(813, 374)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(206, 162)
+        Me.GroupBox4.Size = New System.Drawing.Size(206, 182)
         Me.GroupBox4.TabIndex = 48
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Earnings Calculator"
@@ -548,33 +582,238 @@ Partial Class Form1
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Calcutator made by Rene Smeekes"
         '
-        'Button8
+        'GroupBox5
         '
-        Me.Button8.Location = New System.Drawing.Point(189, 60)
-        Me.Button8.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(141, 22)
-        Me.Button8.TabIndex = 45
-        Me.Button8.Text = "Search Nodes"
-        Me.Button8.UseVisualStyleBackColor = True
+        Me.GroupBox5.Controls.Add(Me.Label19)
+        Me.GroupBox5.Controls.Add(Me.TextBox1)
+        Me.GroupBox5.Controls.Add(Me.Label18)
+        Me.GroupBox5.Controls.Add(Me.EmailBox)
+        Me.GroupBox5.Controls.Add(Me.Label17)
+        Me.GroupBox5.Controls.Add(Me.WallBox)
+        Me.GroupBox5.Controls.Add(Me.Label16)
+        Me.GroupBox5.Controls.Add(Me.BanBox)
+        Me.GroupBox5.Controls.Add(Me.Label14)
+        Me.GroupBox5.Controls.Add(Me.StorBox)
+        Me.GroupBox5.Controls.Add(Me.Label15)
+        Me.GroupBox5.Controls.Add(Me.DataBox)
+        Me.GroupBox5.Controls.Add(Me.Label13)
+        Me.GroupBox5.Controls.Add(Me.InstallNodeBtn)
+        Me.GroupBox5.Controls.Add(Me.DashIpBox)
+        Me.GroupBox5.Controls.Add(Me.Label12)
+        Me.GroupBox5.Controls.Add(Me.ExIpBox)
+        Me.GroupBox5.Controls.Add(Me.Label11)
+        Me.GroupBox5.Controls.Add(Me.Button9)
+        Me.GroupBox5.Controls.Add(Me.IDpathBox)
+        Me.GroupBox5.Controls.Add(Me.Label10)
+        Me.GroupBox5.Location = New System.Drawing.Point(351, 374)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(456, 248)
+        Me.GroupBox5.TabIndex = 49
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Install Aditional node"
         '
-        'Label9
+        'BanBox
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(196, 45)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(113, 13)
-        Me.Label9.TabIndex = 46
-        Me.Label9.Text = "Search local pc nodes"
+        Me.BanBox.Location = New System.Drawing.Point(271, 69)
+        Me.BanBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.BanBox.Name = "BanBox"
+        Me.BanBox.Size = New System.Drawing.Size(126, 20)
+        Me.BanBox.TabIndex = 51
+        Me.BanBox.Text = "20 TB"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(271, 53)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(57, 13)
+        Me.Label14.TabIndex = 52
+        Me.Label14.Text = "Bandwidth"
+        '
+        'StorBox
+        '
+        Me.StorBox.Location = New System.Drawing.Point(271, 31)
+        Me.StorBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.StorBox.Name = "StorBox"
+        Me.StorBox.Size = New System.Drawing.Size(126, 20)
+        Me.StorBox.TabIndex = 49
+        Me.StorBox.Text = "3.5 TB"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(271, 15)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(90, 13)
+        Me.Label15.TabIndex = 50
+        Me.Label15.Text = "Storage ammount"
+        '
+        'DataBox
+        '
+        Me.DataBox.Location = New System.Drawing.Point(5, 145)
+        Me.DataBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.DataBox.Name = "DataBox"
+        Me.DataBox.Size = New System.Drawing.Size(126, 20)
+        Me.DataBox.TabIndex = 47
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(5, 129)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(69, 13)
+        Me.Label13.TabIndex = 48
+        Me.Label13.Text = "storage.path:"
+        '
+        'InstallNodeBtn
+        '
+        Me.InstallNodeBtn.Location = New System.Drawing.Point(359, 141)
+        Me.InstallNodeBtn.Name = "InstallNodeBtn"
+        Me.InstallNodeBtn.Size = New System.Drawing.Size(75, 23)
+        Me.InstallNodeBtn.TabIndex = 46
+        Me.InstallNodeBtn.Text = "Install"
+        Me.InstallNodeBtn.UseVisualStyleBackColor = True
+        '
+        'DashIpBox
+        '
+        Me.DashIpBox.Location = New System.Drawing.Point(135, 69)
+        Me.DashIpBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.DashIpBox.Name = "DashIpBox"
+        Me.DashIpBox.Size = New System.Drawing.Size(126, 20)
+        Me.DashIpBox.TabIndex = 44
+        Me.DashIpBox.Text = "localhost:14003"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(135, 53)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(121, 13)
+        Me.Label12.TabIndex = 45
+        Me.Label12.Text = "Node dashboard IP:Port"
+        '
+        'ExIpBox
+        '
+        Me.ExIpBox.Location = New System.Drawing.Point(5, 69)
+        Me.ExIpBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.ExIpBox.Name = "ExIpBox"
+        Me.ExIpBox.Size = New System.Drawing.Size(126, 20)
+        Me.ExIpBox.TabIndex = 42
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(5, 53)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(109, 13)
+        Me.Label11.TabIndex = 43
+        Me.Label11.Text = "Node External IP:Port"
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(188, 29)
+        Me.Button9.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(68, 22)
+        Me.Button9.TabIndex = 41
+        Me.Button9.Text = "Get Path"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'IDpathBox
+        '
+        Me.IDpathBox.Location = New System.Drawing.Point(5, 31)
+        Me.IDpathBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.IDpathBox.Name = "IDpathBox"
+        Me.IDpathBox.Size = New System.Drawing.Size(170, 20)
+        Me.IDpathBox.TabIndex = 39
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(5, 16)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(97, 13)
+        Me.Label10.TabIndex = 40
+        Me.Label10.Text = "Unic Indentity Path"
+        '
+        'WallBox
+        '
+        Me.WallBox.Location = New System.Drawing.Point(5, 107)
+        Me.WallBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.WallBox.Name = "WallBox"
+        Me.WallBox.Size = New System.Drawing.Size(256, 20)
+        Me.WallBox.TabIndex = 53
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(5, 92)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(77, 13)
+        Me.Label16.TabIndex = 54
+        Me.Label16.Text = "ERC 20 Wallet"
+        '
+        'EmailBox
+        '
+        Me.EmailBox.Location = New System.Drawing.Point(271, 107)
+        Me.EmailBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.EmailBox.Name = "EmailBox"
+        Me.EmailBox.Size = New System.Drawing.Size(170, 20)
+        Me.EmailBox.TabIndex = 55
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(271, 92)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(32, 13)
+        Me.Label17.TabIndex = 56
+        Me.Label17.Text = "Email"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(150, 143)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(126, 20)
+        Me.TextBox1.TabIndex = 57
+        Me.TextBox1.Text = "127.0.0.1:7779"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(150, 127)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(114, 13)
+        Me.Label18.TabIndex = 58
+        Me.Label18.Text = "server.private-address:"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(5, 178)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(406, 65)
+        Me.Label19.TabIndex = 59
+        Me.Label19.Text = resources.GetString("Label19.Text")
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1025, 734)
+        Me.ClientSize = New System.Drawing.Size(1025, 626)
+        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.NodeList)
         Me.Controls.Add(Me.GroupBox2)
@@ -592,6 +831,8 @@ Partial Class Form1
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -626,7 +867,6 @@ Partial Class Form1
     Friend WithEvents SleepTimeBox As TextBox
     Friend WithEvents StopNodeBtn As Button
     Friend WithEvents StartNodeBtn As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents ArhiveBtn As Button
     Friend WithEvents Label8 As Label
     Friend WithEvents Button5 As Button
@@ -645,4 +885,26 @@ Partial Class Form1
     Friend WithEvents NodeVersion As DataGridViewTextBoxColumn
     Friend WithEvents Label9 As Label
     Friend WithEvents Button8 As Button
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents BanBox As TextBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents StorBox As TextBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents DataBox As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents InstallNodeBtn As Button
+    Friend WithEvents DashIpBox As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents ExIpBox As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Button9 As Button
+    Friend WithEvents IDpathBox As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents EmailBox As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents WallBox As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label18 As Label
 End Class

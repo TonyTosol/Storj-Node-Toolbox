@@ -696,17 +696,17 @@ Public Class Form1
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        LogPathBox.Text = OpenFile()
+        LogPathBox.Text = OpenFile("Log file|*.log", "Select an node path")
     End Sub
-    Private Function OpenFile() As String
+    Private Function OpenFile(filter As String, Title As String) As String
         'build and configure an OpenFileDialog
         Dim OFD As New OpenFileDialog
         With OFD
             .AddExtension = True
             .CheckFileExists = True
-            .Filter = "Log file|*.log"
+            .Filter = filter
             .Multiselect = False
-            .Title = "Select an node path"
+            .Title = Title
         End With
 
         'show the ofd and if a file was selected return it, otherwise return nothing
@@ -1040,4 +1040,8 @@ Public Class Form1
         End If
         Return exist
     End Function
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        IDpathBox.Text = OpenFile("Certificates|*.Cert", "Select indentity path")
+    End Sub
 End Class

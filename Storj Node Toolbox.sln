@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Storj Node Toolbox", "Storj Node Toolbox\Storj Node Toolbox.vbproj", "{37DE2033-3216-404F-A7A8-3F9B9DC94704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "D:\Users\Vadim\Desktop\TaskScheduler_1.2_src\TaskScheduler.csproj", "{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "TaskScheduler_1.2_src\TaskScheduler.csproj", "{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

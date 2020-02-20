@@ -138,6 +138,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="MyExtensions.vb" />
+    <Compile Include="NodeConfig.vb" />
     <Compile Include="NodeStruct.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -237,12 +238,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\Users\Vadim\Desktop\TaskScheduler_1.2_src\TaskScheduler.csproj">
-      <Project>{2321bb1b-e1ce-4dd2-b485-e7bd4244474b}</Project>
-      <Name>TaskScheduler</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -254,7 +249,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TaskScheduler_1.2_src\TaskScheduler.csproj">
+      <Project>{2321bb1b-e1ce-4dd2-b485-e7bd4244474b}</Project>
+      <Name>TaskScheduler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="python\libcrypto-1_1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -283,6 +283,7 @@
     <Content Include="python\vcruntime140.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TaskScheduler.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
