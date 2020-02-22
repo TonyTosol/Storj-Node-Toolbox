@@ -1,14 +1,28 @@
 ﻿Public Class NodeConfig
     Private ExternalIp As String = ""
+    Private Indentity as string = ""
     Private Dashboard As String = ""
     Private Storage As String = ""
     Private Bandwidth As String = ""
     Private DataPath As String = ""
-    Private ServerPort As String = ""
     Private ServerPrivate As String = ""
     Private Wallet As String = ""
     Private Email As String = ""
-    Private Conf As String = "# how frequently bandwidth usage rollups are calculated
+    Private Node As String = ""
+
+
+    Public Function GetConfig(ExIP As String, Dash As String, indent As String, stor As String, band As String, path As String, ServerP As String, Mail As String, wall As String, nd As String) As String
+        ExternalIp = ExIP
+        Dashboard = Dash
+        Indentity = indent
+        Storage = stor
+        Bandwidth = band
+        DataPath = path
+        ServerPrivate = ServerP
+        Email = Mail
+        Wallet = wall
+        Node = nd
+        Dim Conf As String = "# how frequently bandwidth usage rollups are calculated
 # bandwidth.interval: 1h0m0s
 
 # how frequently expired pieces are collected
@@ -18,13 +32,13 @@
 # color: false
 
 # server address of the api gateway and frontend app
-console.address: 192.168.88.240:14002
+console.address: " & Dashboard & "
 
 # path to static resources
 # console.static-dir: ""
 
 # the public address of the node, useful for nodes behind NAT
-contact.external-address: ""
+contact.external-address: " & ExternalIp & "
 
 # how frequently the node contact chore should run
 # contact.interval: 1h0m0s
@@ -48,19 +62,16 @@ contact.external-address: ""
 # edit-conf: false
 
 # path to the certificate chain for this identity
-identity.cert-path: C:\Identity\storagenode/identity.cert
+identity.cert-path: " & Indentity & "
 
 # path to the private key for this identity
-identity.key-path: C:\Identity\storagenode/identity.key
-
-# the public address of the Kademlia node, useful for nodes behind NAT
-kademlia.external-address: 84.52.10.144:28967
+identity.key-path: " & Indentity.Substring(0, Indentity.Length - 5) & ".key
 
 # operator email address
-kademlia.operator.email: vadim@nvp.ee
+operator.email: " & Email & "
 
 # operator wallet address
-kademlia.operator.wallet: 0x0D53d36A422d3Dd841EBaC8508d839259bA0668f
+operator.wallet: " & Wallet & "
 
 # if true, log function filename and line number
 # log.caller: false
@@ -75,7 +86,7 @@ kademlia.operator.wallet: 0x0D53d36A422d3Dd841EBaC8508d839259bA0668f
 log.level: info
 
 # can be stdout, stderr, or a filename
-log.output: winfile:///C:\Program Files\Storj\Storage Node\\storagenode.log
+log.output: winfile:///C:\Program Files\Storj" & Node & "\Storage Node\\storagenode.log
 
 # if true, log stack traces
 # log.stack: false
@@ -107,12 +118,6 @@ log.output: winfile:///C:\Program Files\Storj\Storage Node\\storagenode.log
 # how often to sync storage
 # nodestats.storage-sync: 12h0m0s
 
-# operator email address
-operator.email: ""
-
-# operator wallet address
-operator.wallet: ""
-
 # how many concurrent retain requests can be processed at the same time.
 #retain.concurrency: 100
 
@@ -123,7 +128,7 @@ operator.wallet: ""
 # retain.status: disabled
 
 # public address to listen on
-server.address: :28967
+server.address: :" & ExternalIp.Split(":").Last & "
 
 # log all GRPC traffic to zap logger
 server.debug-log-traffic: false
@@ -141,7 +146,7 @@ server.debug-log-traffic: false
 # server.peer-id-versions: latest
 
 # private address to listen on
-server.private-address: 127.0.0.1:7778
+server.private-address: " & ServerPrivate & "
 
 # url for revocation database (e.g. bolt://some.db OR redis://127.0.0.1:6378?db=2&password=abc123)
 # server.revocation-dburl: bolt://C:\Program Files\Storj\Storage Node/revocations.db
@@ -150,16 +155,16 @@ server.private-address: 127.0.0.1:7778
 # server.use-peer-ca-whitelist: true
 
 # total allocated bandwidth in bytes
-storage.allocated-bandwidth: 50.0 TB
+storage.allocated-bandwidth: " & Bandwidth & "
 
 # total allocated disk space in bytes
-storage.allocated-disk-space: 3.6 TB
+storage.allocated-disk-space: " & Storage & "
 
 # how frequently Kademlia bucket should be refreshed with node stats
 # storage.k-bucket-refresh-interval: 1h0m0s
 
 # path to store data in
-storage.path: D:\
+storage.path: " & DataPath & "
 
 # a comma-separated list of approved satellite node urls
 # storage.whitelisted-satellites: 12EayRS2V1kEsWESU9QMRseFhdxYxKicsiFmxrsLZHeLUtdps3S@mars.tardigrade.io:7777,118UWpMCHzs6CvSgWd9BfFVjw5K9pZbJjkfZJexMtSkmKxvvAW@satellite.stefan-benten.de:7777,121RTSDpyNZVcEU84Ticf2L1ntiuUimbWgfATz21tuvgk3vzoA6@saturn.tardigrade.io:7777,12L9ZFwhzVpuEKMUNUqkaTLGzwY9G24tbiigLiXpmZWKwmcNDDs@jupiter.tardigrade.io:7777
@@ -214,5 +219,7 @@ storage.path: D:\
 
 # server address to check its version against
 # version.server-address: https://version.storj.io"
+        Return Conf
+    End Function
 
 End Class

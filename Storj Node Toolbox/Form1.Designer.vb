@@ -71,6 +71,13 @@ Partial Class Form1
         Me.DP = New System.Windows.Forms.DateTimePicker()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.PrivateIpBox = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.EmailBox = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.WallBox = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.BanBox = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.StorBox = New System.Windows.Forms.TextBox()
@@ -85,13 +92,7 @@ Partial Class Form1
         Me.Button9 = New System.Windows.Forms.Button()
         Me.IDpathBox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.WallBox = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.EmailBox = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Button10 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -585,7 +586,7 @@ Partial Class Form1
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.Label19)
-        Me.GroupBox5.Controls.Add(Me.TextBox1)
+        Me.GroupBox5.Controls.Add(Me.PrivateIpBox)
         Me.GroupBox5.Controls.Add(Me.Label18)
         Me.GroupBox5.Controls.Add(Me.EmailBox)
         Me.GroupBox5.Controls.Add(Me.Label17)
@@ -611,6 +612,71 @@ Partial Class Form1
         Me.GroupBox5.TabIndex = 49
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Install Aditional node"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(5, 178)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(403, 65)
+        Me.Label19.TabIndex = 59
+        Me.Label19.Text = resources.GetString("Label19.Text")
+        '
+        'PrivateIpBox
+        '
+        Me.PrivateIpBox.Location = New System.Drawing.Point(150, 143)
+        Me.PrivateIpBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.PrivateIpBox.Name = "PrivateIpBox"
+        Me.PrivateIpBox.Size = New System.Drawing.Size(126, 20)
+        Me.PrivateIpBox.TabIndex = 57
+        Me.PrivateIpBox.Text = "127.0.0.1:7779"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(150, 127)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(114, 13)
+        Me.Label18.TabIndex = 58
+        Me.Label18.Text = "server.private-address:"
+        '
+        'EmailBox
+        '
+        Me.EmailBox.Location = New System.Drawing.Point(271, 107)
+        Me.EmailBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.EmailBox.Name = "EmailBox"
+        Me.EmailBox.Size = New System.Drawing.Size(170, 20)
+        Me.EmailBox.TabIndex = 55
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(271, 92)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(32, 13)
+        Me.Label17.TabIndex = 56
+        Me.Label17.Text = "Email"
+        '
+        'WallBox
+        '
+        Me.WallBox.Location = New System.Drawing.Point(5, 107)
+        Me.WallBox.Margin = New System.Windows.Forms.Padding(2)
+        Me.WallBox.Name = "WallBox"
+        Me.WallBox.Size = New System.Drawing.Size(256, 20)
+        Me.WallBox.TabIndex = 53
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(5, 92)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(77, 13)
+        Me.Label16.TabIndex = 54
+        Me.Label16.Text = "ERC 20 Wallet"
         '
         'BanBox
         '
@@ -742,76 +808,21 @@ Partial Class Form1
         Me.Label10.TabIndex = 40
         Me.Label10.Text = "Unic Indentity Path"
         '
-        'WallBox
+        'Button10
         '
-        Me.WallBox.Location = New System.Drawing.Point(5, 107)
-        Me.WallBox.Margin = New System.Windows.Forms.Padding(2)
-        Me.WallBox.Name = "WallBox"
-        Me.WallBox.Size = New System.Drawing.Size(256, 20)
-        Me.WallBox.TabIndex = 53
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(5, 92)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(77, 13)
-        Me.Label16.TabIndex = 54
-        Me.Label16.Text = "ERC 20 Wallet"
-        '
-        'EmailBox
-        '
-        Me.EmailBox.Location = New System.Drawing.Point(271, 107)
-        Me.EmailBox.Margin = New System.Windows.Forms.Padding(2)
-        Me.EmailBox.Name = "EmailBox"
-        Me.EmailBox.Size = New System.Drawing.Size(170, 20)
-        Me.EmailBox.TabIndex = 55
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(271, 92)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(32, 13)
-        Me.Label17.TabIndex = 56
-        Me.Label17.Text = "Email"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(150, 143)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(126, 20)
-        Me.TextBox1.TabIndex = 57
-        Me.TextBox1.Text = "127.0.0.1:7779"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(150, 127)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(114, 13)
-        Me.Label18.TabIndex = 58
-        Me.Label18.Text = "server.private-address:"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(5, 178)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(406, 65)
-        Me.Label19.TabIndex = 59
-        Me.Label19.Text = resources.GetString("Label19.Text")
+        Me.Button10.Location = New System.Drawing.Point(849, 574)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(75, 23)
+        Me.Button10.TabIndex = 50
+        Me.Button10.Text = "Button10"
+        Me.Button10.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1025, 626)
+        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -905,6 +916,7 @@ Partial Class Form1
     Friend WithEvents WallBox As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents Label19 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents PrivateIpBox As TextBox
     Friend WithEvents Label18 As Label
+    Friend WithEvents Button10 As Button
 End Class

@@ -1042,6 +1042,80 @@ Public Class Form1
     End Function
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        IDpathBox.Text = OpenFile("Certificates|*.Cert", "Select indentity path")
+        IDpathBox.Text = OpenFile("Certificate|ca.Cert", "Select indentity path")
     End Sub
+
+    Private Sub InstallNodeBtn_Click(sender As Object, e As EventArgs) Handles InstallNodeBtn.Click
+        If NodeData.Nodes IsNot Nothing Then
+            If File.Exists(IDpathBox.Text) Then
+                If ExIpBox.Text.Length > 10 Then
+                    If DashIpBox.Text.Length > 10 Then
+                        If WallBox.Text.Length > 10 Then
+                            If EmailBox.Text.Length > 5 Then
+                                If DataBox.Text.Length > 2 Then
+                                    InstallNode()
+
+
+
+
+                                Else
+                                    MsgBox("Add Storage path")
+                                End If
+                            Else
+                                MsgBox("Add Email")
+                            End If
+                        Else
+                            MsgBox("Add wallet")
+                        End If
+                    Else
+                        MsgBox("Dashboard IP:Port")
+                    End If
+                Else
+                    MsgBox("External Ip:Port")
+                End If
+
+            Else
+                MsgBox("Indentity not exist")
+            End If
+        Else
+            MsgBox("Please install first node by Storj installation file, and add it to dashboard.")
+        End If
+    End Sub
+    Private Sub InstallNode()
+        'Try
+
+        Dim nodeNumber As Integer = NodeData.Nodes.Count
+            Directory.CreateDirectory("C:\Program Files\Storj" & nodeNumber & "\Storage Node\")
+            Dim objWriter As New System.IO.StreamWriter("C:\Program Files\Storj" & nodeNumber & "\Storage Node\config.yaml")
+            Dim config As New NodeConfig
+            objWriter.Write(config.GetConfig(ExIpBox.Text, DashIpBox.Text, IDpathBox.Text, StorBox.Text, BanBox.Text, DataBox.Text, PrivateIpBox.Text, EmailBox.Text, WallBox.Text, nodeNumber))
+            objWriter.Close()
+        Dim mainnode As String = "C:\Program Files\Storj\Storage Node\storagenode.exe"
+        For Each node In NodeData.Nodes
+                If node.MainNode And File.Exists(node.Path) Then
+                    mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
+                    Exit For
+                End If
+            Next
+
+        My.Computer.FileSystem.CopyFile(mainnode, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
+        ServiceInstaller.InstallAndStart("storagenode" & nodeNumber, "storagenode" & nodeNumber, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
+        SetImagePath(nodeNumber)
+        Dim sc As ServiceController = New ServiceController("storagenode" & nodeNumber)
+        sc.Start()
+        SearchService()
+
+        MsgBox("Install Complete")
+
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
+    End Sub
+    Private Sub SetImagePath(nodenumber As String)
+        Dim regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\storagenode" & nodenumber, True)
+        regKey.SetValue("ImagePath", """C:\Program Files\Storj" & nodenumber & "\Storage Node\storagenode.exe"" run --config-dir ""C:\Program Files\Storj" & nodenumber & "\Storage Node\\""")
+
+    End Sub
+
+
 End Class
