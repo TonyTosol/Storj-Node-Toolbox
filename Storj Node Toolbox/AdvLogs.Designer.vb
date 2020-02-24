@@ -67,8 +67,8 @@ Partial Class AdvLogs
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(106, 17)
-        Me.ToolStripStatusLabel1.Text = "Log Rows Analized"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(109, 17)
+        Me.ToolStripStatusLabel1.Text = "Log Rows Analyzed"
         '
         'LogRowLbl
         '
@@ -107,7 +107,7 @@ Partial Class AdvLogs
         '
         'FaildCritical
         '
-        Me.FaildCritical.HeaderText = "Faild Critical"
+        Me.FaildCritical.HeaderText = "Failed Critical"
         Me.FaildCritical.MinimumWidth = 6
         Me.FaildCritical.Name = "FaildCritical"
         Me.FaildCritical.ReadOnly = True

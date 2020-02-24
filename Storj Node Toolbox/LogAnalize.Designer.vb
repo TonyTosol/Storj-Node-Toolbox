@@ -44,11 +44,12 @@ Partial Class LogAnalize
         Me.RG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OName, Me.Succsesfull, Me.Faild, Me.FaildCritical, Me.Total, Me.KPD})
         Me.RG.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RG.Location = New System.Drawing.Point(0, 0)
+        Me.RG.Margin = New System.Windows.Forms.Padding(2)
         Me.RG.Name = "RG"
         Me.RG.ReadOnly = True
         Me.RG.RowHeadersWidth = 51
         Me.RG.RowTemplate.Height = 24
-        Me.RG.Size = New System.Drawing.Size(1371, 756)
+        Me.RG.Size = New System.Drawing.Size(1028, 614)
         Me.RG.TabIndex = 4
         '
         'OName
@@ -77,7 +78,7 @@ Partial Class LogAnalize
         '
         'FaildCritical
         '
-        Me.FaildCritical.HeaderText = "Faild Critical"
+        Me.FaildCritical.HeaderText = "Failed Critical"
         Me.FaildCritical.MinimumWidth = 6
         Me.FaildCritical.Name = "FaildCritical"
         Me.FaildCritical.ReadOnly = True
@@ -103,30 +104,32 @@ Partial Class LogAnalize
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.LogRowLbl})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 730)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 592)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1371, 26)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1028, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(135, 20)
-        Me.ToolStripStatusLabel1.Text = "Log Rows Analized"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(109, 17)
+        Me.ToolStripStatusLabel1.Text = "Log Rows Analyzed"
         '
         'LogRowLbl
         '
         Me.LogRowLbl.Name = "LogRowLbl"
-        Me.LogRowLbl.Size = New System.Drawing.Size(0, 20)
+        Me.LogRowLbl.Size = New System.Drawing.Size(0, 17)
         '
         'LogAnalize
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1371, 756)
+        Me.ClientSize = New System.Drawing.Size(1028, 614)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.RG)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "LogAnalize"
         Me.Text = "LogAnalize"
         CType(Me.RG, System.ComponentModel.ISupportInitialize).EndInit()
@@ -138,13 +141,13 @@ Partial Class LogAnalize
     End Sub
 
     Friend WithEvents RG As DataGridView
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents LogRowLbl As ToolStripStatusLabel
     Friend WithEvents OName As DataGridViewTextBoxColumn
     Friend WithEvents Succsesfull As DataGridViewTextBoxColumn
     Friend WithEvents Faild As DataGridViewTextBoxColumn
     Friend WithEvents FaildCritical As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents KPD As DataGridViewTextBoxColumn
-    Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
-    Friend WithEvents LogRowLbl As ToolStripStatusLabel
 End Class

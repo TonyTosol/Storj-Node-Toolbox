@@ -92,7 +92,7 @@ Partial Class Form1
         Me.Button9 = New System.Windows.Forms.Button()
         Me.IDpathBox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.TrobleBtn = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -286,6 +286,7 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.TrobleBtn)
         Me.GroupBox2.Controls.Add(Me.Button6)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Button5)
@@ -300,7 +301,7 @@ Partial Class Form1
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox2.Size = New System.Drawing.Size(206, 199)
+        Me.GroupBox2.Size = New System.Drawing.Size(206, 266)
         Me.GroupBox2.TabIndex = 41
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Tools"
@@ -543,12 +544,12 @@ Partial Class Form1
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(106, 100)
+        Me.Button7.Location = New System.Drawing.Point(97, 100)
         Me.Button7.Margin = New System.Windows.Forms.Padding(2)
         Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(80, 22)
+        Me.Button7.Size = New System.Drawing.Size(89, 22)
         Me.Button7.TabIndex = 54
-        Me.Button7.Text = "Ernings Calc"
+        Me.Button7.Text = "Start calculator"
         Me.Button7.UseVisualStyleBackColor = True
         '
         'GroupBox4
@@ -556,7 +557,7 @@ Partial Class Form1
         Me.GroupBox4.Controls.Add(Me.DP)
         Me.GroupBox4.Controls.Add(Me.Button7)
         Me.GroupBox4.Controls.Add(Me.LinkLabel1)
-        Me.GroupBox4.Location = New System.Drawing.Point(813, 374)
+        Me.GroupBox4.Location = New System.Drawing.Point(813, 440)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(206, 182)
         Me.GroupBox4.TabIndex = 48
@@ -578,10 +579,10 @@ Partial Class Form1
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Location = New System.Drawing.Point(13, 23)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(174, 13)
+        Me.LinkLabel1.Size = New System.Drawing.Size(173, 13)
         Me.LinkLabel1.TabIndex = 1
         Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Calcutator made by Rene Smeekes"
+        Me.LinkLabel1.Text = "Calculator made by Rene Smeekes"
         '
         'GroupBox5
         '
@@ -808,21 +809,20 @@ Partial Class Form1
         Me.Label10.TabIndex = 40
         Me.Label10.Text = "Unic Indentity Path"
         '
-        'Button10
+        'TrobleBtn
         '
-        Me.Button10.Location = New System.Drawing.Point(849, 574)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(75, 23)
-        Me.Button10.TabIndex = 50
-        Me.Button10.Text = "Button10"
-        Me.Button10.UseVisualStyleBackColor = True
+        Me.TrobleBtn.Location = New System.Drawing.Point(17, 204)
+        Me.TrobleBtn.Name = "TrobleBtn"
+        Me.TrobleBtn.Size = New System.Drawing.Size(75, 23)
+        Me.TrobleBtn.TabIndex = 54
+        Me.TrobleBtn.Text = "Trobleshoot"
+        Me.TrobleBtn.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1025, 626)
-        Me.Controls.Add(Me.Button10)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -918,5 +918,5 @@ Partial Class Form1
     Friend WithEvents Label19 As Label
     Friend WithEvents PrivateIpBox As TextBox
     Friend WithEvents Label18 As Label
-    Friend WithEvents Button10 As Button
+    Friend WithEvents TrobleBtn As Button
 End Class

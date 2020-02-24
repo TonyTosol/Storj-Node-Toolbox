@@ -111,6 +111,7 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helper.vb" />
     <Compile Include="HttpSender.vb" />
     <Compile Include="JsonHelper.vb" />
     <Compile Include="JsonStructure.vb" />
@@ -145,6 +146,12 @@
     <Compile Include="NodeConfig.vb" />
     <Compile Include="NodeStruct.vb" />
     <Compile Include="ServiceInstaller.vb" />
+    <Compile Include="TrobleForm.Designer.vb">
+      <DependentUpon>TrobleForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TrobleForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AuditForm.resx">
@@ -164,6 +171,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrobleForm.resx">
+      <DependentUpon>TrobleForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

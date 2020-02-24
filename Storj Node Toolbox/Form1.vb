@@ -25,6 +25,7 @@ Public Class Form1
     Private RowSelected As Integer = -1
     Private WithEvents LF As LogAnalize
     Private WithEvents AL As AdvLogs
+    Private Troble As TrobleForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         GetData()
@@ -1117,5 +1118,28 @@ Public Class Form1
 
     End Sub
 
-
+    Private Sub TrobleBtn_Click(sender As Object, e As EventArgs) Handles TrobleBtn.Click
+        If RowSelected >= 0 Then
+            Dim prop As NodeProp = GetNode(RowSelected)
+            If prop IsNot Nothing Then
+                Troble = New TrobleForm(prop)
+                Troble.Show()
+            Else
+                MsgBox("Node Selecting Error")
+            End If
+        Else
+                MsgBox("Select Node from List")
+        End If
+    End Sub
+    Private Function GetNode(selected As Integer) As NodeProp
+        Dim prop As NodeProp
+        If NodeData.Nodes IsNot Nothing Then
+            For Each node As NodeProp In NodeData.Nodes
+                If node.Name = NodeList.Rows(RowSelected).Cells(0).Value Then
+                    prop = node
+                End If
+            Next
+        End If
+        Return prop
+    End Function
 End Class
