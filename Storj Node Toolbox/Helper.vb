@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Runtime.InteropServices
 Imports System.ServiceProcess
 Imports System.Text.RegularExpressions
 
@@ -75,4 +76,13 @@ Public Class Helper
             Return True
         End If
     End Function
+
+    <DllImport("dnsapi.dll", EntryPoint:="DnsFlushResolverCache")>
+    Private Shared Function DnsFlushResolverCache() As UInt32
+
+    End Function
+
+    Public Shared Sub FlushMyCache()
+        Dim result As UInt32 = DnsFlushResolverCache()
+    End Sub
 End Class

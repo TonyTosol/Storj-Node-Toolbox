@@ -11,17 +11,21 @@ Public Class LogAnalize
     Dim auditsFailedCritical As Long = 0
 
     Dim dl_success As Long = 0
+    Dim dl_canceled As Long = 0
     Dim dl_failed As Long = 0
 
     Dim put_success As Long = 0
     Dim put_failed As Long = 0
     Dim put_rejected As Long = 0
+    Dim put_canceled As Long = 0
 
     Dim get_repair_success As Long = 0
     Dim get_repair_failed As Long = 0
+    Dim get_repair_canceled As Long = 0
 
     Dim put_repair_success As Long = 0
     Dim put_repair_failed As Long = 0
+    Dim put_repair_canceled As Long = 0
 
 
     Dim DiskIOError As Long = 0
@@ -73,16 +77,16 @@ Public Class LogAnalize
             If Me.InvokeRequired Then
                 Me.Invoke(New MethodInvoker(AddressOf PrintResults))
             Else
-                RG.Rows.Add({"Audits", auditsSuccess, auditsFailed, auditsFailedCritical, auditsSuccess + auditsFailed + auditsFailedCritical, (auditsSuccess / (auditsSuccess + auditsFailed + auditsFailedCritical)) * 100})
-                RG.Rows.Add({"Egress", dl_success, dl_failed, "", dl_success + dl_failed, (dl_success / (dl_success + dl_failed)) * 100})
-                RG.Rows.Add({"Ingress", put_success, put_failed, put_rejected, put_success + put_failed + put_rejected, put_success / (put_success + put_failed + put_rejected) * 100})
-                RG.Rows.Add({"Repair Egress", get_repair_success, get_repair_failed, "", get_repair_success + get_repair_failed, get_repair_success / (get_repair_success + get_repair_failed) * 100})
-                RG.Rows.Add({"Repair Ingress", put_repair_success, put_repair_failed, "", put_repair_success + put_repair_failed, put_repair_success / (put_repair_success + put_repair_failed) * 100})
+                RG.Rows.Add({"Audits", auditsSuccess, auditsFailed, auditsFailedCritical, "", auditsSuccess + auditsFailed + auditsFailedCritical, (auditsSuccess / (auditsSuccess + auditsFailed + auditsFailedCritical)) * 100})
+                RG.Rows.Add({"Egress", dl_success, dl_failed, dl_canceled, "", dl_success + dl_failed + dl_canceled, (dl_success / (dl_success + dl_failed + dl_canceled)) * 100})
+                RG.Rows.Add({"Ingress", put_success, put_failed, put_canceled, put_rejected, put_success + put_failed + put_rejected + put_canceled, put_success / (put_success + put_failed + put_rejected + put_canceled) * 100})
+                RG.Rows.Add({"Repair Egress", get_repair_success, get_repair_failed, get_repair_canceled, "", get_repair_success + get_repair_failed + get_repair_canceled, get_repair_success / (get_repair_success + get_repair_failed + get_repair_canceled) * 100})
+                RG.Rows.Add({"Repair Ingress", put_repair_success, put_repair_failed, put_repair_canceled, "", put_repair_success + put_repair_failed + put_repair_canceled, put_repair_success / (put_repair_success + put_repair_failed + put_repair_canceled) * 100})
                 RG.Rows.Add({"Disk I/O Error", "", "", DiskIOError, DiskIOError, ""})
-                RG.Rows.Add({"DB malformed", "", "", DBmalforemed, DBmalforemed, ""})
-                RG.Rows.Add({"Telemetry Send Error", "", TelemetryError, "", TelemetryError, ""})
-                RG.Rows.Add({"Database Locked", "", DBLocked, "", DBLocked, ""})
-                RG.Rows.Add({"File Not Exist", "", "", FileNotFound, FileNotFound, ""})
+                RG.Rows.Add({"DB malformed", "", "", "", DBmalforemed, DBmalforemed, ""})
+                RG.Rows.Add({"Telemetry Send Error", "", "", TelemetryError, "", TelemetryError, ""})
+                RG.Rows.Add({"Database Locked", "", "", DBLocked, "", DBLocked, ""})
+                RG.Rows.Add({"File Not Exist", "", "", "", FileNotFound, FileNotFound, ""})
                 Me.Show()
             End If
         Catch ex As Exception
@@ -136,20 +140,28 @@ Public Class LogAnalize
                 get_repair_success += 1
             ElseIf line.Contains("GET_REPAIR") And line.Contains("failed") Then
                 get_repair_failed += 1
+            ElseIf line.Contains("GET_REPAIR") And line.Contains("canceled") Then
+                get_repair_canceled += 1
             ElseIf line.Contains("PUT_REPAIR") And line.Contains("uploaded") Then
                 put_repair_success += 1
             ElseIf line.Contains("PUT_REPAIR") And line.Contains("failed") Then
                 put_repair_failed += 1
+            ElseIf line.Contains("PUT_REPAIR") And line.Contains("canceled") Then
+                put_repair_canceled += 1
             ElseIf line.Contains("GET") And line.Contains("downloaded") Then
                 dl_success += 1
             ElseIf line.Contains("GET") And line.Contains("failed") Then
                 dl_failed += 1
+            ElseIf line.Contains("GET") And line.Contains("canceled") Then
+                dl_canceled += 1
             ElseIf line.Contains("PUT") And line.Contains("uploaded") Then
                 put_success += 1
             ElseIf line.Contains("PUT") And line.Contains("rejected") Then
                 put_rejected += 1
             ElseIf line.Contains("PUT") And line.Contains("failed") Then
                 put_failed += 1
+            ElseIf line.Contains("PUT") And line.Contains("canceled") Then
+                put_canceled += 1
             ElseIf line.Contains("disk I/O error") Then
                 DiskIOError += 1
             ElseIf line.Contains("malformed") Then

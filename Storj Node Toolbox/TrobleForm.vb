@@ -275,4 +275,9 @@ Public Class TrobleForm
     Private Sub Button2_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+        Helper.FlushMyCache()
+        AddRow1("Flushing DNS Cache, After need to make windows restart")
+    End Sub
 End Class

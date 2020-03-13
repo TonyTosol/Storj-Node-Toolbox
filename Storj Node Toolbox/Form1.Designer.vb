@@ -42,6 +42,7 @@ Partial Class Form1
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.TrobleBtn = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Button5 = New System.Windows.Forms.Button()
@@ -92,7 +93,6 @@ Partial Class Form1
         Me.Button9 = New System.Windows.Forms.Button()
         Me.IDpathBox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.TrobleBtn = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NodeList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -306,6 +306,15 @@ Partial Class Form1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Tools"
         '
+        'TrobleBtn
+        '
+        Me.TrobleBtn.Location = New System.Drawing.Point(17, 204)
+        Me.TrobleBtn.Name = "TrobleBtn"
+        Me.TrobleBtn.Size = New System.Drawing.Size(75, 23)
+        Me.TrobleBtn.TabIndex = 54
+        Me.TrobleBtn.Text = "Trobleshoot"
+        Me.TrobleBtn.UseVisualStyleBackColor = True
+        '
         'Button6
         '
         Me.Button6.Location = New System.Drawing.Point(107, 60)
@@ -315,6 +324,7 @@ Partial Class Form1
         Me.Button6.TabIndex = 53
         Me.Button6.Text = "Adv. Logs"
         Me.Button6.UseVisualStyleBackColor = True
+        Me.Button6.Visible = False
         '
         'Label8
         '
@@ -808,15 +818,6 @@ Partial Class Form1
         Me.Label10.Size = New System.Drawing.Size(97, 13)
         Me.Label10.TabIndex = 40
         Me.Label10.Text = "Unic Indentity Path"
-        '
-        'TrobleBtn
-        '
-        Me.TrobleBtn.Location = New System.Drawing.Point(17, 204)
-        Me.TrobleBtn.Name = "TrobleBtn"
-        Me.TrobleBtn.Size = New System.Drawing.Size(75, 23)
-        Me.TrobleBtn.TabIndex = 54
-        Me.TrobleBtn.Text = "Trobleshoot"
-        Me.TrobleBtn.UseVisualStyleBackColor = True
         '
         'Form1
         '

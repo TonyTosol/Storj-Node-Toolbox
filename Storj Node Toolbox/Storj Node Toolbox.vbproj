@@ -195,6 +195,12 @@
     <None Include="python\pyexpat.pyd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="python\python37.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="python\python37._pth">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="python\select.pyd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -265,6 +271,7 @@
       <Name>TaskScheduler</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="python\libcrypto-1_1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -281,13 +288,13 @@
     <Content Include="python\python3.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="python\python37.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="python\pythonw.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="python\sqlite3.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="python\vcruntime140.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

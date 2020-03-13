@@ -34,6 +34,8 @@ Partial Class TrobleForm
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -59,6 +61,8 @@ Partial Class TrobleForm
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label4)
+        Me.GroupBox1.Controls.Add(Me.Button2)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Button3)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -75,7 +79,7 @@ Partial Class TrobleForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(206, 35)
+        Me.Button1.Location = New System.Drawing.Point(199, 35)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 2
@@ -130,13 +134,13 @@ Partial Class TrobleForm
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(186, 16)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(125, 13)
+        Me.Label2.Size = New System.Drawing.Size(102, 13)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Start/Stop trobleshooting"
+        Me.Label2.Text = "Basic trobleshooting"
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(316, 35)
+        Me.Button3.Location = New System.Drawing.Point(1132, 30)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(75, 23)
         Me.Button3.TabIndex = 6
@@ -146,17 +150,35 @@ Partial Class TrobleForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(315, 16)
+        Me.Label3.Location = New System.Drawing.Point(1131, 11)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 13)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Restart Node"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(1224, 12)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(91, 13)
+        Me.Label4.TabIndex = 9
+        Me.Label4.Text = "Flush DNS cache"
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(1225, 31)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 8
+        Me.Button2.Text = "Flush DNS"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'TrobleForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1347, 790)
+        Me.ClientSize = New System.Drawing.Size(1347, 805)
         Me.Controls.Add(Me.ListView2)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.GroupBox1)
@@ -180,4 +202,6 @@ Partial Class TrobleForm
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Button3 As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Button2 As Button
 End Class

@@ -30,6 +30,7 @@ Partial Class AdvLogs
         Me.OName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Succsesfull = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Faild = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Canceled = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FaildCritical = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Total = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.KPD = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -42,7 +43,7 @@ Partial Class AdvLogs
         Me.RG.AllowUserToAddRows = False
         Me.RG.AllowUserToDeleteRows = False
         Me.RG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.RG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RowTime, Me.OName, Me.Succsesfull, Me.Faild, Me.FaildCritical, Me.Total, Me.KPD})
+        Me.RG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RowTime, Me.OName, Me.Succsesfull, Me.Faild, Me.Canceled, Me.FaildCritical, Me.Total, Me.KPD})
         Me.RG.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RG.Location = New System.Drawing.Point(0, 0)
         Me.RG.Margin = New System.Windows.Forms.Padding(2)
@@ -105,6 +106,12 @@ Partial Class AdvLogs
         Me.Faild.ReadOnly = True
         Me.Faild.Width = 75
         '
+        'Canceled
+        '
+        Me.Canceled.HeaderText = "Canceled"
+        Me.Canceled.Name = "Canceled"
+        Me.Canceled.ReadOnly = True
+        '
         'FaildCritical
         '
         Me.FaildCritical.HeaderText = "Failed Critical"
@@ -155,6 +162,7 @@ Partial Class AdvLogs
     Friend WithEvents OName As DataGridViewTextBoxColumn
     Friend WithEvents Succsesfull As DataGridViewTextBoxColumn
     Friend WithEvents Faild As DataGridViewTextBoxColumn
+    Friend WithEvents Canceled As DataGridViewTextBoxColumn
     Friend WithEvents FaildCritical As DataGridViewTextBoxColumn
     Friend WithEvents Total As DataGridViewTextBoxColumn
     Friend WithEvents KPD As DataGridViewTextBoxColumn
