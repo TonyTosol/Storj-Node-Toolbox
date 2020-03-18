@@ -25,6 +25,8 @@
         Dim Conf As String = "# how frequently bandwidth usage rollups are calculated
 # bandwidth.interval: 1h0m0s
 
+preflight.database-check: true
+
 # how frequently expired pieces are collected
 # collector.interval: 1h0m0s
 
@@ -35,7 +37,7 @@
 console.address: " & Dashboard & "
 
 # path to static resources
-# console.static-dir: ""
+# console.static-dir: "" ""
 
 # the public address of the node, useful for nodes behind NAT
 contact.external-address: " & ExternalIp & "
@@ -56,10 +58,25 @@ contact.external-address: " & ExternalIp & "
 # debug.addr: 127.0.0.1:0
 
 # If set, a path to write a process trace SVG to
-# debug.trace-out: ""
+# debug.trace-out: "" ""
 
 # open config in default editor
 # edit-conf: false
+
+# how often to run the chore to check for satellites for the node to exit.
+# graceful-exit.chore-interval: 15m0s
+
+# the minimum acceptable bytes that an exiting node can transfer per second to the new node
+# graceful-exit.min-bytes-per-second: 128 B
+
+# the minimum duration for downloading a piece from storage nodes before timing out
+# graceful-exit.min-download-timeout: 2m0s
+
+# number of concurrent transfers per graceful exit worker
+# graceful-exit.num-concurrent-transfers: 1
+
+# number of workers to handle satellite exits
+# graceful-exit.num-workers: 3
 
 # path to the certificate chain for this identity
 identity.cert-path: " & Indentity & "
@@ -67,11 +84,14 @@ identity.cert-path: " & Indentity & "
 # path to the private key for this identity
 identity.key-path: " & Indentity.Substring(0, Indentity.Length - 5) & ".key
 
-# operator email address
-operator.email: " & Email & "
+# if true, log function filename and line number
+# log.caller: false
 
-# operator wallet address
-operator.wallet: " & Wallet & "
+# if true, set logging to development mode
+# log.development: false
+
+# configures log encoding. can either be 'console' or 'json'
+# log.encoding: console
 
 # if true, log function filename and line number
 # log.caller: false
@@ -101,7 +121,7 @@ log.output: winfile:///C:\Program Files\Storj" & Node & "\Storage Node\\storagen
 # metrics.app-suffix: -release
 
 # instance id prefix
-# metrics.instance-prefix: ""
+# metrics.instance-prefix: "" ""
 
 # how frequently to send up telemetry
 # metrics.interval: 1m0s
@@ -118,14 +138,20 @@ log.output: winfile:///C:\Program Files\Storj" & Node & "\Storage Node\\storagen
 # how often to sync storage
 # nodestats.storage-sync: 12h0m0s
 
+# operator email address
+operator.email: " & Email & "
+
+# operator wallet address
+operator.wallet: " & Wallet & "
+
 # how many concurrent retain requests can be processed at the same time.
-#retain.concurrency: 100
+# retain.concurrency: 100
 
 # allows for small differences in the satellite and storagenode clocks
 # retain.max-time-skew: 24h0m0s
 
 # allows configuration to enable, disable, or test retain requests from the satellite. Options: (disabled/enabled/debug)
-# retain.status: disabled
+# retain.status: enabled
 
 # public address to listen on
 server.address: :" & ExternalIp.Split(":").Last & "
@@ -140,7 +166,7 @@ server.debug-log-traffic: false
 # server.extensions.whitelist-signed-leaf: false
 
 # path to the CA cert whitelist (peer identities must be signed by one these to be verified). this will override the default peer whitelist
-# server.peer-ca-whitelist-path: ""
+# server.peer-ca-whitelist-path: "" ""
 
 # identity version(s) the server will be allowed to talk to
 # server.peer-id-versions: latest
@@ -149,7 +175,7 @@ server.debug-log-traffic: false
 server.private-address: " & ServerPrivate & "
 
 # url for revocation database (e.g. bolt://some.db OR redis://127.0.0.1:6378?db=2&password=abc123)
-# server.revocation-dburl: bolt://C:\Program Files\Storj\Storage Node/revocations.db
+# server.revocation-dburl: bolt://C:\Program Files\Storj" & Node & "\Storage Node/revocations.db
 
 # if true, uses peer ca whitelist checking
 # server.use-peer-ca-whitelist: true

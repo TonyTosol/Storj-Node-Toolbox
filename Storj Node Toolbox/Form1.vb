@@ -1043,7 +1043,7 @@ Public Class Form1
     End Function
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        IDpathBox.Text = OpenFile("Certificate|ca.Cert", "Select indentity path")
+        IDpathBox.Text = OpenFile("Identity|identity.cert", "Select indentity path")
     End Sub
 
     Private Sub InstallNodeBtn_Click(sender As Object, e As EventArgs) Handles InstallNodeBtn.Click
