@@ -138,13 +138,13 @@ Public Class Form1
 
 
                     Dim list As New List(Of Object)
-                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/dashboard"), HttpWebRequest)
+                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno"), HttpWebRequest)
 
                     sateliteresponce = DirectCast(satelite.GetResponse(), HttpWebResponse)
                     reader = New StreamReader(sateliteresponce.GetResponseStream())
                     Dim rawresp As String
                     rawresp = reader.ReadToEnd()
-                    list.AddRange((JObject.Parse(rawresp)("data")("satellites")))
+                    list.AddRange((JObject.Parse(rawresp)("satellites")))
 
 
                     Dim egressCount As Long = 0
@@ -165,21 +165,21 @@ Public Class Form1
                         repairUpCount = 0
                         Dim obj As String = (id.GetValue("id"))
 
-                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/satellite/" & obj), HttpWebRequest)
+                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno/satellite/" & obj), HttpWebRequest)
 
                         response = DirectCast(request.GetResponse(), HttpWebResponse)
                         reader = New StreamReader(response.GetResponseStream())
                         rawresp = reader.ReadToEnd()
 
-                        Dim Audits = ((JObject.Parse(rawresp)("data")("audit")("successCount"))).ToString
-                        Dim TotalAudits = ((JObject.Parse(rawresp)("data")("audit")("totalCount"))).ToString
+                        Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
+                        Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
 
-                        Dim Uptime = ((JObject.Parse(rawresp)("data")("uptime")("successCount"))).ToString
-                        Dim TotalUptime = ((JObject.Parse(rawresp)("data")("uptime")("totalCount"))).ToString
+                        Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
+                        Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
 
 
 
-                        For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
+                        For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("bandwidthDaily").ToString)
                             Dim egressObject = values("egress")("usage")
                             Dim ingressObject = values("ingress")("usage")
                             Dim repairDownObject = values("ingress")("repair")
@@ -193,7 +193,7 @@ Public Class Form1
                         Try
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("storageDaily").ToString)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("storageDaily").ToString)
 
 
                                 storageDaily = storageDaily + CLng(values("atRestTotal"))
@@ -213,7 +213,7 @@ Public Class Form1
                     TotalrepairDownCount = TotalrepairDownCount + NoderepairDownCount
                     TotalrepairUpCount = TotalrepairUpCount + NoderepairUpCount
                     TotalstorageDaily = TotalstorageDaily + storageDaily
-                    Dim tmpnode As New Node With {.Name = NodeAndName.Name,
+                    Dim tmpnode As New Node With {.Name = NodeAndName.Name & " " & NodeAndName.IP,
                                                     .Status = "OK",
                                                     .TotalBandwidth = Math.Round((NodeegressCount + NodeingressCount + NoderepairUpCount + NoderepairDownCount) / 1000000000, 1),
                                                     .EgressBandwidth = Math.Round(NodeegressCount / 1000000000, 1),
@@ -311,13 +311,13 @@ Public Class Form1
                 Try
 
                     Dim list As New List(Of Object)
-                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/dashboard"), HttpWebRequest)
+                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno"), HttpWebRequest)
                     '' satelite.Timeout = 500
                     sateliteresponce = DirectCast(satelite.GetResponse(), HttpWebResponse)
                     reader = New StreamReader(sateliteresponce.GetResponseStream())
                     Dim rawresp As String
                     rawresp = reader.ReadToEnd()
-                    list.AddRange((JObject.Parse(rawresp)("data")("satellites")))
+                    list.AddRange((JObject.Parse(rawresp)("satellites")))
 
 
                     Dim egressCount As Long = 0
@@ -338,22 +338,22 @@ Public Class Form1
                         repairUpCount = 0
                         Dim obj As String = (id.GetValue("id"))
 
-                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/satellite/" & obj), HttpWebRequest)
+                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno/satellite/" & obj), HttpWebRequest)
                         '' request.Timeout = 500
                         response = DirectCast(request.GetResponse(), HttpWebResponse)
                         reader = New StreamReader(response.GetResponseStream())
                         rawresp = reader.ReadToEnd()
 
-                        Dim Audits = ((JObject.Parse(rawresp)("data")("audit")("successCount"))).ToString
-                        Dim TotalAudits = ((JObject.Parse(rawresp)("data")("audit")("totalCount"))).ToString
+                        Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
+                        Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
 
-                        Dim Uptime = ((JObject.Parse(rawresp)("data")("uptime")("successCount"))).ToString
-                        Dim TotalUptime = ((JObject.Parse(rawresp)("data")("uptime")("totalCount"))).ToString
+                        Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
+                        Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
 
                         Try
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("bandwidthDaily").ToString)
                                 Dim egressObject = values("egress")("usage")
                                 Dim ingressObject = values("ingress")("usage")
                                 Dim repairDownObject = values("ingress")("repair")
@@ -371,7 +371,7 @@ Public Class Form1
                         Try
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("storageDaily").ToString)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("storageDaily").ToString)
 
 
                                 storageDaily = storageDaily + CLng(values("atRestTotal"))
@@ -497,13 +497,13 @@ Public Class Form1
                     TotalstorageDaily = 0
 
                     Dim list As New List(Of Object)
-                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/dashboard"), HttpWebRequest)
+                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno"), HttpWebRequest)
 
                     sateliteresponce = DirectCast(satelite.GetResponse(), HttpWebResponse)
                     reader = New StreamReader(sateliteresponce.GetResponseStream())
                     Dim rawresp As String
                     rawresp = reader.ReadToEnd()
-                    list.AddRange((JObject.Parse(rawresp)("data")("satellites")))
+                    list.AddRange((JObject.Parse(rawresp)("satellites")))
 
 
                     Dim egressCount As Long = 0
@@ -524,23 +524,23 @@ Public Class Form1
                         repairUpCount = 0
                         Dim obj As String = (id.GetValue("id"))
 
-                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/satellite/" & obj), HttpWebRequest)
+                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno/satellite/" & obj), HttpWebRequest)
 
                         response = DirectCast(request.GetResponse(), HttpWebResponse)
                         reader = New StreamReader(response.GetResponseStream())
                         rawresp = reader.ReadToEnd()
 
-                        Dim Audits = ((JObject.Parse(rawresp)("data")("audit")("successCount"))).ToString
-                        Dim TotalAudits = ((JObject.Parse(rawresp)("data")("audit")("totalCount"))).ToString
+                        Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
+                        Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
 
-                        Dim Uptime = ((JObject.Parse(rawresp)("data")("uptime")("successCount"))).ToString
-                        Dim TotalUptime = ((JObject.Parse(rawresp)("data")("uptime")("totalCount"))).ToString
+                        Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
+                        Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
 
                         Try
 
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("bandwidthDaily").ToString)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("bandwidthDaily").ToString)
                                 Dim egressObject = values("egress")("usage")
                                 Dim ingressObject = values("ingress")("usage")
                                 Dim repairDownObject = values("ingress")("repair")
@@ -557,7 +557,7 @@ Public Class Form1
                         Try
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("data")("storageDaily").ToString)
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("storageDaily").ToString)
 
 
                                 storageDaily = storageDaily + CLng(values("atRestTotal"))
