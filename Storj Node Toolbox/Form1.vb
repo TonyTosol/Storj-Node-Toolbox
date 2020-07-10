@@ -848,9 +848,9 @@ Public Class Form1
         Dim SelDate As DateTime = DP.Value
         If RowSelected >= 0 Then
             Try
-                Dim path As String = GetStoragePath(NodeList.Rows(RowSelected).Cells(3).Value)
+                Dim path As String = OpenFile("Bandwith.db|bandwidth.db", "Specify selected node bandwidth.db path")
                 If path.Length > 0 Then
-
+                    path = path.Replace("bandwidth.db", "")
 
 
                     Dim sc As ServiceController = New ServiceController(NodeList.Rows(RowSelected).Cells(4).Value)
@@ -861,6 +861,7 @@ Public Class Form1
                     My.Computer.FileSystem.CopyFile(path & "storage_usage.db", Application.StartupPath & "\db\storage_usage.db", True)
                     My.Computer.FileSystem.CopyFile(path & "piece_spaced_used.db", Application.StartupPath & "\db\piece_spaced_used.db", True)
                     My.Computer.FileSystem.CopyFile(path & "reputation.db", Application.StartupPath & "\db\reputation.db", True)
+                    My.Computer.FileSystem.CopyFile(path & "heldamount.db", Application.StartupPath & "\db\heldamount.db", True)
 
                     sc.Start()
                     RunCommandCom(Application.StartupPath & "\python\python ", Application.StartupPath & "\earnings.py " & Application.StartupPath & "\db " & SelDate.Year & "-" & SelDate.Month, True)
