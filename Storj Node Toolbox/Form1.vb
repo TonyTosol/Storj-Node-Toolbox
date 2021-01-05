@@ -26,6 +26,8 @@ Public Class Form1
     Private WithEvents LF As LogAnalize
     Private WithEvents AL As AdvLogs
     Private Troble As TrobleForm
+    Private Conf As ConfEditorForm
+    Private SmartF As SmartForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         GetData()
@@ -131,102 +133,104 @@ Public Class Form1
             Dim TotalrepairDownCount As Long = 0
             Dim TotalrepairUpCount As Long = 0
             Dim TotalstorageDaily As Long = 0
-            For Each NodeAndName As NodeProp In NodeData.Nodes
+            If NodeData.Nodes.Count > 0 Then
+                For Each NodeAndName As NodeProp In NodeData.Nodes
 
 
-                Try
+                    Try
 
 
-                    Dim list As New List(Of Object)
-                    satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno"), HttpWebRequest)
+                        Dim list As New List(Of Object)
+                        satelite = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno"), HttpWebRequest)
 
-                    sateliteresponce = DirectCast(satelite.GetResponse(), HttpWebResponse)
-                    reader = New StreamReader(sateliteresponce.GetResponseStream())
-                    Dim rawresp As String
-                    rawresp = reader.ReadToEnd()
-                    list.AddRange((JObject.Parse(rawresp)("satellites")))
-
-
-                    Dim egressCount As Long = 0
-                    Dim ingressCount As Long = 0
-                    Dim repairDownCount As Long = 0
-                    Dim repairUpCount As Long = 0
-                    Dim storageDaily As Long = 0
-
-                    Dim NodeegressCount As Long = 0
-                    Dim NodeingressCount As Long = 0
-                    Dim NoderepairDownCount As Long = 0
-                    Dim NoderepairUpCount As Long = 0
-
-                    For Each id As JObject In list
-                        egressCount = 0
-                        ingressCount = 0
-                        repairDownCount = 0
-                        repairUpCount = 0
-                        Dim obj As String = (id.GetValue("id"))
-
-                        request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno/satellite/" & obj), HttpWebRequest)
-
-                        response = DirectCast(request.GetResponse(), HttpWebResponse)
-                        reader = New StreamReader(response.GetResponseStream())
+                        sateliteresponce = DirectCast(satelite.GetResponse(), HttpWebResponse)
+                        reader = New StreamReader(sateliteresponce.GetResponseStream())
+                        Dim rawresp As String
                         rawresp = reader.ReadToEnd()
-
-                        Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
-                        Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
-
-                        Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
-                        Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
+                        list.AddRange((JObject.Parse(rawresp)("satellites")))
 
 
+                        Dim egressCount As Long = 0
+                        Dim ingressCount As Long = 0
+                        Dim repairDownCount As Long = 0
+                        Dim repairUpCount As Long = 0
+                        Dim storageDaily As Long = 0
 
-                        For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("bandwidthDaily").ToString)
-                            Dim egressObject = values("egress")("usage")
-                            Dim ingressObject = values("ingress")("usage")
-                            Dim repairDownObject = values("ingress")("repair")
-                            Dim repairUpObject = values("egress")("repair")
-                            egressCount = egressCount + CLng(egressObject)
-                            ingressCount = ingressCount + CLng(ingressObject)
-                            repairDownCount = repairDownCount + CLng(repairDownObject)
-                            repairUpCount = repairUpCount + CLng(repairUpObject)
+                        Dim NodeegressCount As Long = 0
+                        Dim NodeingressCount As Long = 0
+                        Dim NoderepairDownCount As Long = 0
+                        Dim NoderepairUpCount As Long = 0
 
-                        Next
-                        Try
+                        For Each id As JObject In list
+                            egressCount = 0
+                            ingressCount = 0
+                            repairDownCount = 0
+                            repairUpCount = 0
+                            Dim obj As String = (id.GetValue("id"))
+
+                            request = DirectCast(WebRequest.Create("http://" & NodeAndName.IP & ":" & NodeAndName.Port & "/api/sno/satellite/" & obj), HttpWebRequest)
+
+                            response = DirectCast(request.GetResponse(), HttpWebResponse)
+                            reader = New StreamReader(response.GetResponseStream())
+                            rawresp = reader.ReadToEnd()
+
+                            Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
+                            Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
+
+                            Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
+                            Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
 
 
-                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("storageDaily").ToString)
 
-
-                                storageDaily = storageDaily + CLng(values("atRestTotal"))
+                            For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("bandwidthDaily").ToString)
+                                Dim egressObject = values("egress")("usage")
+                                Dim ingressObject = values("ingress")("usage")
+                                Dim repairDownObject = values("ingress")("repair")
+                                Dim repairUpObject = values("egress")("repair")
+                                egressCount = egressCount + CLng(egressObject)
+                                ingressCount = ingressCount + CLng(ingressObject)
+                                repairDownCount = repairDownCount + CLng(repairDownObject)
+                                repairUpCount = repairUpCount + CLng(repairUpObject)
 
                             Next
-                        Catch ex As Exception
+                            Try
 
-                        End Try
-                        NodeegressCount = NodeegressCount + egressCount
-                        NodeingressCount = NodeingressCount + ingressCount
-                        NoderepairDownCount = NoderepairDownCount + repairDownCount
-                        NoderepairUpCount = NoderepairUpCount + repairUpCount
 
-                    Next
-                    TotalegressCount = TotalegressCount + NodeegressCount
-                    TotalingressCount = TotalingressCount + NodeingressCount
-                    TotalrepairDownCount = TotalrepairDownCount + NoderepairDownCount
-                    TotalrepairUpCount = TotalrepairUpCount + NoderepairUpCount
-                    TotalstorageDaily = TotalstorageDaily + storageDaily
-                    Dim tmpnode As New Node With {.Name = NodeAndName.Name & " " & NodeAndName.IP,
+                                For Each values As Object In JsonConvert.DeserializeObject(Of List(Of Object))(JObject.Parse(rawresp)("storageDaily").ToString)
+
+
+                                    storageDaily = storageDaily + CLng(values("atRestTotal"))
+
+                                Next
+                            Catch ex As Exception
+
+                            End Try
+                            NodeegressCount = NodeegressCount + egressCount
+                            NodeingressCount = NodeingressCount + ingressCount
+                            NoderepairDownCount = NoderepairDownCount + repairDownCount
+                            NoderepairUpCount = NoderepairUpCount + repairUpCount
+
+                        Next
+                        TotalegressCount = TotalegressCount + NodeegressCount
+                        TotalingressCount = TotalingressCount + NodeingressCount
+                        TotalrepairDownCount = TotalrepairDownCount + NoderepairDownCount
+                        TotalrepairUpCount = TotalrepairUpCount + NoderepairUpCount
+                        TotalstorageDaily = TotalstorageDaily + storageDaily
+                        Dim tmpnode As New Node With {.Name = NodeAndName.Name & " " & NodeAndName.IP,
                                                     .Status = "OK",
                                                     .TotalBandwidth = Math.Round((NodeegressCount + NodeingressCount + NoderepairUpCount + NoderepairDownCount) / 1000000000, 1),
                                                     .EgressBandwidth = Math.Round(NodeegressCount / 1000000000, 1),
                                                     .IngressBandwidth = Math.Round(NodeingressCount / 1000000000, 1),
                                                     .storageDaily = Math.Round(TotalstorageDaily / 720000000000000, 3)}
 
-                    sendObject.Nodes.AddItemToArray(tmpnode)
-                    sendObject.LiveNodeCount = sendObject.LiveNodeCount + 1
-                Catch ex As Exception
+                        sendObject.Nodes.AddItemToArray(tmpnode)
+                        sendObject.LiveNodeCount = sendObject.LiveNodeCount + 1
+                    Catch ex As Exception
 
-                End Try
+                    End Try
 
-            Next
+                Next
+            End If
             Dim resultJson = JsonHelper.FromClass(sendObject)
 
             Dim result = Sender.postData(resultJson)
@@ -258,8 +262,8 @@ Public Class Form1
     End Sub
 
     Private Sub OnApplicationExit(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Closing
-        ' When the application is exiting, write the application data to the 
-        ' user file and close it.
+        'When the application Is exiting, write the application data to the 
+        'user File And Close() it.
         Try
             _taskScheduler.Enabled = False
             _taskScheduler.TriggerItems.Clear()
@@ -606,51 +610,7 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub AddNodeBtn_Click(sender As Object, e As EventArgs) Handles AddNodeBtn.Click
-        Try
 
-            If NodeData Is Nothing Then NodeData = New NodeStruct
-
-            If NodeData.Nodes IsNot Nothing Then
-                For Each data As NodeProp In NodeData.Nodes
-                    If data.IP = IPBox.Text And PortBox.Text = data.Port Then
-                        MsgBox("Node Exists in the list")
-                        Exit Sub
-                    ElseIf data.Name = NodeName.Text Then
-                        MsgBox("Name already exists")
-                        Exit Sub
-                    ElseIf data.Path = LogPathBox.Text And LogPathBox.Text <> "" Then
-                        MsgBox("Log path exists")
-                        Exit Sub
-                    ElseIf data.ServiceName = ServiceText.Text Then
-                        MsgBox("Service already exists")
-                        Exit Sub
-                    ElseIf MainNodeCheck.Checked = True And data.MainNode Then
-                        MsgBox("Main Node can be only One and shold be first node instaled on PC with name storagenode")
-                        Exit Sub
-
-                    End If
-                Next
-
-            End If
-
-            Dim newnode As New NodeProp With {.IP = IPBox.Text,
-                                                           .Port = PortBox.Text,
-                                                           .Name = NodeName.Text,
-                                                           .Path = LogPathBox.Text,
-                                                           .ServiceName = ServiceText.Text,
-                                                            .MainNode = MainNodeCheck.Checked}
-            NodeData.Nodes.AddItemToArray(newnode)
-            My.Settings.NodeStructures = JsonHelper.FromClass(Of NodeStruct)(NodeData)
-            My.Settings.Save()
-
-            NodeList.Rows.Clear()
-
-            GetServiceStatus()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Try
@@ -696,9 +656,7 @@ Public Class Form1
         LogMonitoring = CheckBox2.Checked
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        LogPathBox.Text = OpenFile("Log file|*.log", "Select an node path")
-    End Sub
+
     Private Function OpenFile(filter As String, Title As String) As String
         'build and configure an OpenFileDialog
         Dim OFD As New OpenFileDialog
@@ -883,7 +841,7 @@ Public Class Form1
     Private Sub RunCommandCom(command As String, arguments As String, permanent As Boolean)
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = " " + If(permanent = True, "/K", "/C") + " " + command + " " + arguments
+        pi.Arguments = " " + If(permanent = True, "/K", "/C") + """" + command + " " + arguments + """"
 
 
         pi.FileName = "cmd.exe"
@@ -1055,10 +1013,19 @@ Public Class Form1
                         If WallBox.Text.Length > 10 Then
                             If EmailBox.Text.Length > 5 Then
                                 If DataBox.Text.Length > 2 Then
-                                    InstallNode()
-
-
-
+                                    If BanBox.Text.Length > 2 Then
+                                        If testSelectedPort("127.0.0.1", PrivateIpBox.Text.Split(":")(1).ToString) Then
+                                            MsgBox("server.private-address:" & PrivateIpBox.Text & " Already in use")
+                                        Else
+                                            If testSelectedPort(DashIpBox.Text.Split(":")(0).ToString, DashIpBox.Text.Split(":")(1).ToString) Then
+                                                MsgBox("Node Dashboard:" & DashIpBox.Text & " Already in use")
+                                            Else
+                                                InstallNode()
+                                            End If
+                                        End If
+                                    Else
+                                            MsgBox("Add database path, usualy it is the same as Storage path")
+                                    End If
 
                                 Else
                                     MsgBox("Add Storage path")
@@ -1083,26 +1050,48 @@ Public Class Form1
             MsgBox("Please install first node by Storj installation file, and add it to dashboard.")
         End If
     End Sub
+    Private Function testSelectedPort(ip As String, port As Integer) As Boolean
+        ' Function to open a socket to the specified port to see if it is listening
+
+        ' Connect to socket
+        Dim testSocket As New System.Net.Sockets.TcpClient()
+
+        Try
+            testSocket.Connect(ip, port)
+            ' The socket is accepting connections
+            testSocket.Close()
+            Return True
+
+        Catch ex As Exception
+            ' The port is not accepting connections
+            Return False
+        End Try
+
+        Return False
+    End Function
     Private Sub InstallNode()
         'Try
 
         Dim nodeNumber As Integer = NodeData.Nodes.Count
-            Directory.CreateDirectory("C:\Program Files\Storj" & nodeNumber & "\Storage Node\")
-            Dim objWriter As New System.IO.StreamWriter("C:\Program Files\Storj" & nodeNumber & "\Storage Node\config.yaml")
-            Dim config As New NodeConfig
-            objWriter.Write(config.GetConfig(ExIpBox.Text, DashIpBox.Text, IDpathBox.Text, StorBox.Text, BanBox.Text, DataBox.Text, PrivateIpBox.Text, EmailBox.Text, WallBox.Text, nodeNumber))
-            objWriter.Close()
+        Directory.CreateDirectory("C:\Program Files\Storj" & nodeNumber & "\Storage Node\")
+        Dim objWriter As New System.IO.StreamWriter("C:\Program Files\Storj" & nodeNumber & "\Storage Node\config.yaml")
+        Dim config As New NodeConfig
+        objWriter.Write(config.GetConfig(ExIpBox.Text, DashIpBox.Text, IDpathBox.Text, StorBox.Text, BanBox.Text, DataBox.Text, PrivateIpBox.Text, EmailBox.Text, WallBox.Text, nodeNumber))
+        objWriter.Close()
         Dim mainnode As String = "C:\Program Files\Storj\Storage Node\storagenode.exe"
         For Each node In NodeData.Nodes
-                If node.MainNode And File.Exists(node.Path) Then
-                    mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
-                    Exit For
-                End If
-            Next
+            If node.MainNode And File.Exists(node.Path) Then
+                mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
+                Exit For
+            End If
+        Next
 
         My.Computer.FileSystem.CopyFile(mainnode, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
         ServiceInstaller.InstallAndStart("storagenode" & nodeNumber, "storagenode" & nodeNumber, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
         SetImagePath(nodeNumber)
+
+        RunCommandCom("""C:\Program Files\Storj1\Storage Node\storagenode.exe""", "setup   --storage.path " & DataBox.Text & " --identity-dir " & IDpathBox.Text.Replace("identity.cert", "") & " --config-dir " & DataBox.Text & "\tempconf", False)
+        Threading.Thread.Sleep(4000)
         Dim sc As ServiceController = New ServiceController("storagenode" & nodeNumber)
         sc.Start()
         SearchService()
@@ -1113,6 +1102,7 @@ Public Class Form1
         '    MsgBox(ex.Message)
         'End Try
     End Sub
+
     Private Sub SetImagePath(nodenumber As String)
         Dim regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\storagenode" & nodenumber, True)
         regKey.SetValue("ImagePath", """C:\Program Files\Storj" & nodenumber & "\Storage Node\storagenode.exe"" run --config-dir ""C:\Program Files\Storj" & nodenumber & "\Storage Node\\""")
@@ -1143,4 +1133,17 @@ Public Class Form1
         End If
         Return prop
     End Function
+
+    Private Sub ConfEdit_Click(sender As Object, e As EventArgs) Handles ConfEdit.Click
+        If RowSelected >= 0 Then
+            Dim path As String = NodeList.Rows(RowSelected).Cells(3).Value
+            conf = New ConfEditorForm(path.Substring(0, path.Length - 15) & "config.yaml")
+            conf.Show()
+        End If
+    End Sub
+
+    Private Sub Smart_Click(sender As Object, e As EventArgs) Handles Smart.Click
+        SmartF = New SmartForm
+        SmartF.Show()
+    End Sub
 End Class

@@ -3,7 +3,7 @@
     Private Indentity as string = ""
     Private Dashboard As String = ""
     Private Storage As String = ""
-    Private Bandwidth As String = ""
+    Private DBpath As String = ""
     Private DataPath As String = ""
     Private ServerPrivate As String = ""
     Private Wallet As String = ""
@@ -11,12 +11,12 @@
     Private Node As String = ""
 
 
-    Public Function GetConfig(ExIP As String, Dash As String, indent As String, stor As String, band As String, path As String, ServerP As String, Mail As String, wall As String, nd As String) As String
+    Public Function GetConfig(ExIP As String, Dash As String, indent As String, stor As String, _DBpath As String, path As String, ServerP As String, Mail As String, wall As String, nd As String) As String
         ExternalIp = ExIP
         Dashboard = Dash
         Indentity = indent
         Storage = stor
-        Bandwidth = band
+        DBpath = _DBpath
         DataPath = path
         ServerPrivate = ServerP
         Email = Mail
@@ -154,7 +154,7 @@ operator.wallet: " & Wallet & "
 # retain.status: enabled
 
 # public address to listen on
-server.address: :" & ExternalIp.Split(":").Last & "
+server.address: :" & ExternalIp.Split(":").Last.ToString & "
 
 # log all GRPC traffic to zap logger
 server.debug-log-traffic: false
@@ -181,7 +181,7 @@ server.private-address: " & ServerPrivate & "
 # server.use-peer-ca-whitelist: true
 
 # total allocated bandwidth in bytes
-storage.allocated-bandwidth: " & Bandwidth & "
+storage.allocated-bandwidth: 20TB
 
 # total allocated disk space in bytes
 storage.allocated-disk-space: " & Storage & "
@@ -191,6 +191,9 @@ storage.allocated-disk-space: " & Storage & "
 
 # path to store data in
 storage.path: " & DataPath & "
+
+# path to databases
+Storage2.Database-Dir: " & DBpath & "
 
 # a comma-separated list of approved satellite node urls
 # storage.whitelisted-satellites: 12EayRS2V1kEsWESU9QMRseFhdxYxKicsiFmxrsLZHeLUtdps3S@mars.tardigrade.io:7777,118UWpMCHzs6CvSgWd9BfFVjw5K9pZbJjkfZJexMtSkmKxvvAW@satellite.stefan-benten.de:7777,121RTSDpyNZVcEU84Ticf2L1ntiuUimbWgfATz21tuvgk3vzoA6@saturn.tardigrade.io:7777,12L9ZFwhzVpuEKMUNUqkaTLGzwY9G24tbiigLiXpmZWKwmcNDDs@jupiter.tardigrade.io:7777

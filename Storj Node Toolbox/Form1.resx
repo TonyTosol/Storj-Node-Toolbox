@@ -146,6 +146,7 @@
 Standard port for communications 28967 so please use +1 on every additional node.
 server.private-address is 127.0.0.1:7778 so please use +1 on every additional node.
 Dashboard standard is localhost:14002 so please use +1 on every additional node
-every node had to have own unic indetity with unic invitation code from storj </value>
+every node had to have own unic indetity with unic invitation code from storj 
+Storage2.Database-Dir- path to database directory, usualy it is the same as Storage.path</value>
   </data>
 </root>

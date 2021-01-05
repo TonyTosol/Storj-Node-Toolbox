@@ -75,6 +75,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -102,6 +103,13 @@
       <DependentUpon>AuditForm.vb</DependentUpon>
     </Compile>
     <Compile Include="AuditForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clsDiskInfoEx.vb" />
+    <Compile Include="ConfEditorForm.Designer.vb">
+      <DependentUpon>ConfEditorForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConfEditorForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.vb">
@@ -146,6 +154,12 @@
     <Compile Include="NodeConfig.vb" />
     <Compile Include="NodeStruct.vb" />
     <Compile Include="ServiceInstaller.vb" />
+    <Compile Include="SmartForm.Designer.vb">
+      <DependentUpon>SmartForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SmartForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TrobleForm.Designer.vb">
       <DependentUpon>TrobleForm.vb</DependentUpon>
     </Compile>
@@ -156,6 +170,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AuditForm.resx">
       <DependentUpon>AuditForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfEditorForm.resx">
+      <DependentUpon>ConfEditorForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
@@ -171,6 +188,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartForm.resx">
+      <DependentUpon>SmartForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrobleForm.resx">
       <DependentUpon>TrobleForm.vb</DependentUpon>
@@ -266,6 +286,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Smart.Net\Smart.Net.csproj">
+      <Project>{6bd2604a-5fc9-4ed0-8c9a-563892fa2c9c}</Project>
+      <Name>Smart.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskScheduler_1.2_src\TaskScheduler.csproj">
       <Project>{2321bb1b-e1ce-4dd2-b485-e7bd4244474b}</Project>
       <Name>TaskScheduler</Name>
@@ -295,6 +319,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="python\sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="vc_redist.x64.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

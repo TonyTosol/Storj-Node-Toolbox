@@ -7,6 +7,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Storj Node Toolbox", "Storj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "TaskScheduler_1.2_src\TaskScheduler.csproj", "{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smart.Net", "Smart.Net\Smart.Net.csproj", "{6BD2604A-5FC9-4ED0-8C9A-563892FA2C9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2321BB1B-E1CE-4DD2-B485-E7BD4244474B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD2604A-5FC9-4ED0-8C9A-563892FA2C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD2604A-5FC9-4ED0-8C9A-563892FA2C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD2604A-5FC9-4ED0-8C9A-563892FA2C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD2604A-5FC9-4ED0-8C9A-563892FA2C9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
