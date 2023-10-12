@@ -348,8 +348,8 @@ Public Class Form1
                         reader = New StreamReader(response.GetResponseStream())
                         rawresp = reader.ReadToEnd()
 
-                        Dim Audits = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
-                        Dim TotalAudits = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
+                        Dim Audits As String '' = ((JObject.Parse(rawresp)("audit")("successCount"))).ToString
+                        Dim TotalAudits As String '' = ((JObject.Parse(rawresp)("audit")("totalCount"))).ToString
 
                         Dim Uptime = ((JObject.Parse(rawresp)("uptime")("successCount"))).ToString
                         Dim TotalUptime = ((JObject.Parse(rawresp)("uptime")("totalCount"))).ToString
@@ -974,6 +974,57 @@ Public Class Form1
 
         Return ""
     End Function
+    Private Function getPrivateAddFromConf(path As String) As String
+        Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
+        Dim len As Long = 0
+
+        Dim rowlen As Integer = 0
+
+        Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+
+
+            Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+            While Not reader.EndOfStream
+                Dim line As String = reader.ReadLine
+                If line.Contains("server.private-address:") Then
+                    Dim paths = line.Split(":")
+
+                    Return paths(1).TrimStart(" ") & ":" & paths(2)
+                End If
+
+            End While
+            reader.Close()
+            fs.Close()
+        End Using
+
+        Return ""
+    End Function
+    Private Function getIdenFromConf(path As String) As String
+        Dim conf As String = path.Substring(0, path.Length - 15) & "config.yaml"
+        Dim len As Long = 0
+
+        Dim rowlen As Integer = 0
+
+        Using fs As FileStream = New FileStream(conf, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+
+
+            Dim reader As New StreamReader(fs, True) ''System.Text.Encoding.UTF8)
+            While Not reader.EndOfStream
+                Dim line As String = reader.ReadLine
+                If line.Contains("identity.cert-path:") Then
+                    Dim paths = line.Split(":")
+                    Dim pathend = paths(2).Split("/")
+
+                    Return paths(1).TrimStart(" ") & ":" & pathend(0) & "\\"
+                End If
+
+            End While
+            reader.Close()
+            fs.Close()
+        End Using
+
+        Return ""
+    End Function
     Private Function GetImagePath(ServiceName As String) As String
         Dim registryPath As String = "SYSTEM\CurrentControlSet\Services\" & ServiceName
         Dim keyHKLM As RegistryKey = Registry.LocalMachine
@@ -1145,5 +1196,72 @@ Public Class Form1
     Private Sub Smart_Click(sender As Object, e As EventArgs) Handles Smart.Click
         SmartF = New SmartForm
         SmartF.Show()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If NodeData.Nodes IsNot Nothing Then
+            If File.Exists(IDpathBox.Text) Then
+                If ExIpBox.Text.Length > 10 Then
+                    If DashIpBox.Text.Length > 10 Then
+                        If WallBox.Text.Length > 10 Then
+                            If EmailBox.Text.Length > 5 Then
+                                If DataBox.Text.Length > 2 Then
+                                    If BanBox.Text.Length > 2 Then
+
+                                        RunCommandCom("""C:\Program Files\Storj1\Storage Node\storagenode.exe""", "setup   --storage.path " & DataBox.Text & " --identity-dir " & IDpathBox.Text.Replace("identity.cert", "") & " --config-dir " & DataBox.Text & "\tempconf", False)
+
+
+
+                                    Else
+                                        MsgBox("Add database path, usualy it is the same as Storage path")
+                                    End If
+
+                                Else
+                                    MsgBox("Add Storage path")
+                                End If
+                            Else
+                                MsgBox("Add Email")
+                            End If
+                        Else
+                            MsgBox("Add wallet")
+                        End If
+                    Else
+                        MsgBox("Dashboard IP:Port")
+                    End If
+                Else
+                    MsgBox("External Ip:Port")
+                End If
+
+            Else
+                MsgBox("Indentity not exist")
+            End If
+        Else
+            MsgBox("Please install first node by Storj installation file, and add it to dashboard.")
+        End If
+    End Sub
+
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Dim services As ServiceController() = ServiceController.GetServices()
+        Dim Nodes As NodeStruct = New NodeStruct
+        Try
+            For Each s As ServiceController In ServiceController.GetServices()
+                Dim path = GetImagePath(s.ServiceName)
+
+                If path.Contains("storagenode.exe") And Not path.Contains("storagenode-updater.exe") Then
+                    Dim Spath = path.Split(Chr(34))
+                    Dim Iden As String = getIdenFromConf(Spath(1))
+                    Dim conf As String = Spath(1).Substring(0, Spath(1).Length - 15) & "\"
+                    Dim PrivateAdd As String = getPrivateAddFromConf(Spath(1))
+                    RunCommandCom("""C:\Program Files\Storj\Storage Node\storagenode.exe""", "forget-satellite --force 12rfG3sh9NCWiX3ivPjq2HtdLmbqCrvHVEzJubnzFzosMuawymB 12tRQrMTWUWwzwGh18i7Fqs67kmdhH9t6aToeiwbo5mfS2rUmo --identity-dir """ & Iden & """ --config-dir """ & conf & """", True)
+
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+
     End Sub
 End Class
