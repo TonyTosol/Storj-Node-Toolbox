@@ -1252,7 +1252,7 @@ Public Class Form1
                     Dim Iden As String = getIdenFromConf(Spath(1))
                     Dim conf As String = Spath(1).Substring(0, Spath(1).Length - 15) & "\"
                     Dim PrivateAdd As String = getPrivateAddFromConf(Spath(1))
-                    RunCommandCom("""C:\Program Files\Storj\Storage Node\storagenode.exe""", "forget-satellite --force 12rfG3sh9NCWiX3ivPjq2HtdLmbqCrvHVEzJubnzFzosMuawymB 12tRQrMTWUWwzwGh18i7Fqs67kmdhH9t6aToeiwbo5mfS2rUmo --identity-dir """ & Iden & """ --config-dir """ & conf & """", True)
+                    RunCommandCom("""" & Spath(1) & """", "forget-satellite --force 12rfG3sh9NCWiX3ivPjq2HtdLmbqCrvHVEzJubnzFzosMuawymB 12tRQrMTWUWwzwGh18i7Fqs67kmdhH9t6aToeiwbo5mfS2rUmo --identity-dir """ & Iden & """ --config-dir """ & conf & """", True)
 
                 End If
             Next
