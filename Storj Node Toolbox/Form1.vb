@@ -28,6 +28,7 @@ Public Class Form1
     Private Troble As TrobleForm
     Private Conf As ConfEditorForm
     Private SmartF As SmartForm
+    Private data As JObject
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         GetData()
@@ -46,6 +47,29 @@ Public Class Form1
         a.Start()
 
     End Sub
+    Private Function CheckNewVersion() As JObject
+        Dim data As New JObject
+        Try
+
+
+            Dim nodeversionTmp As HttpWebResponse = Nothing
+
+            Dim reader As StreamReader
+            Dim request As HttpWebRequest = DirectCast(WebRequest.Create("https://version.storj.io/"), HttpWebRequest)
+
+            nodeversionTmp = DirectCast(request.GetResponse(), HttpWebResponse)
+            reader = New StreamReader(nodeversionTmp.GetResponseStream())
+            Dim rawresp As String
+            rawresp = reader.ReadToEnd()
+            data = JObject.Parse(rawresp)("processes")("storagenode")("suggested")
+            Dim newversion = (data)("version").ToString
+
+            Return data
+        Catch ex As Exception
+
+            Return data
+        End Try
+    End Function
     Private Sub GetServiceStatus()
         If Me.InvokeRequired Then
             Me.Invoke(New MethodInvoker(AddressOf GetServiceStatus))
@@ -444,6 +468,7 @@ Public Class Form1
             Dim a As Threading.Thread = New Threading.Thread(AddressOf Timedcheck)
             a.IsBackground = True
             a.Start()
+            data = CheckNewVersion()
         Catch ex As Exception
             MsgBox("Error During System Start   " & ex.Message)
         End Try
@@ -1057,8 +1082,8 @@ Public Class Form1
     End Sub
 
     Private Sub InstallNodeBtn_Click(sender As Object, e As EventArgs) Handles InstallNodeBtn.Click
-        If NodeData.Nodes IsNot Nothing Then
-            If File.Exists(IDpathBox.Text) Then
+
+        If File.Exists(IDpathBox.Text) Then
                 If ExIpBox.Text.Length > 10 Then
                     If DashIpBox.Text.Length > 10 Then
                         If WallBox.Text.Length > 10 Then
@@ -1097,9 +1122,7 @@ Public Class Form1
             Else
                 MsgBox("Indentity not exist")
             End If
-        Else
-            MsgBox("Please install first node by Storj installation file, and add it to dashboard.")
-        End If
+
     End Sub
     Private Function testSelectedPort(ip As String, port As Integer) As Boolean
         ' Function to open a socket to the specified port to see if it is listening
@@ -1123,19 +1146,25 @@ Public Class Form1
     Private Sub InstallNode()
         'Try
 
-        Dim nodeNumber As Integer = NodeData.Nodes.Count
+        Dim nodeNumber As Integer = 0
+        Try
+            nodeNumber = NodeData.Nodes.Count
+        Catch ex As Exception
+
+        End Try
         Directory.CreateDirectory("C:\Program Files\Storj" & nodeNumber & "\Storage Node\")
         Dim objWriter As New System.IO.StreamWriter("C:\Program Files\Storj" & nodeNumber & "\Storage Node\config.yaml")
         Dim config As New NodeConfig
         objWriter.Write(config.GetConfig(ExIpBox.Text, DashIpBox.Text, IDpathBox.Text, StorBox.Text, BanBox.Text, DataBox.Text, PrivateIpBox.Text, EmailBox.Text, WallBox.Text, nodeNumber))
         objWriter.Close()
-        Dim mainnode As String = "C:\Program Files\Storj\Storage Node\storagenode.exe"
-        For Each node In NodeData.Nodes
-            If node.MainNode And File.Exists(node.Path) Then
-                mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
-                Exit For
-            End If
-        Next
+        DownloadNewFile()
+        Dim mainnode As String = My.Application.Info.DirectoryPath & "\storagenode.exe"
+        'For Each node In NodeData.Nodes
+        '    If node.MainNode And File.Exists(node.Path) Then
+        '        mainnode = node.Path.Substring(0, node.Path.Length - 4) & ".exe"
+        '        Exit For
+        '    End If
+        'Next
 
         My.Computer.FileSystem.CopyFile(mainnode, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
         ServiceInstaller.InstallAndStart("storagenode" & nodeNumber, "storagenode" & nodeNumber, "C:\Program Files\Storj" & nodeNumber & "\Storage Node\storagenode.exe")
@@ -1153,7 +1182,42 @@ Public Class Form1
         '    MsgBox(ex.Message)
         'End Try
     End Sub
+    Private Sub DownloadNewFile()
+        Dim downloadlinc As String = (Data)("url").ToString
+        downloadlinc = downloadlinc.Replace("{os}", "windows")
+        downloadlinc = downloadlinc.Replace("{arch}", "amd64")
+        Dim saveAs As String = My.Application.Info.DirectoryPath & "\storagenode.exe.zip"
+        Dim theResponse As HttpWebResponse
+        Dim theRequest As HttpWebRequest
+        Try 'Checks if the file exist
+            theRequest = WebRequest.Create(downloadlinc) 'fileUrl is your zip url
+            theResponse = theRequest.GetResponse
+        Catch ex As Exception
+            'could not be found on the server (network delay maybe)
+            Exit Sub 'Exit sub or function, because if not found can't be downloaded
+        End Try
+        Dim length As Long = theResponse.ContentLength
+        Dim writeStream As New IO.FileStream(saveAs, IO.FileMode.Create)
+        Dim nRead As Integer
+        Do
+            Dim readBytes(4095) As Byte
+            Dim bytesread As Integer = theResponse.GetResponseStream.Read(readBytes, 0, 4096)
+            nRead += bytesread
+            If bytesread = 0 Then Exit Do
+            writeStream.Write(readBytes, 0, bytesread)
+        Loop
+        theResponse.GetResponseStream.Close()
+        writeStream.Close()
 
+        'File downloaded 100%
+        If File.Exists(saveAs) Then
+            extractFile(saveAs, My.Application.Info.DirectoryPath)
+
+        End If
+    End Sub
+    Private Sub extractFile(zipPath As String, ExtractPath As String)
+        ZipFile.ExtractToDirectory(zipPath, ExtractPath)
+    End Sub
     Private Sub SetImagePath(nodenumber As String)
         Dim regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Services\\storagenode" & nodenumber, True)
         regKey.SetValue("ImagePath", """C:\Program Files\Storj" & nodenumber & "\Storage Node\storagenode.exe"" run --config-dir ""C:\Program Files\Storj" & nodenumber & "\Storage Node\\""")
